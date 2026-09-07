@@ -1,0 +1,2 @@
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id&&id!=='#'){const el=document.querySelector(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});}}}));
+const header=document.querySelector('.header');let last=0;window.addEventListener('scroll',()=>{const y=scrollY;header.style.boxShadow=y>20?'0 8px 30px rgba(0,0,0,.35)':'none';last=y});
