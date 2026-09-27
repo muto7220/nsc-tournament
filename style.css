@@ -19,3 +19,15 @@
 .champion-line{text-align:center;border:1px solid var(--red);background:rgba(255,22,72,.08);color:var(--red);padding:20px;font:900 24px Rajdhani;letter-spacing:2px}
 .flow-schedule{max-width:1100px;margin:28px auto 0;border-left:2px solid var(--red)}
 @media(max-width:600px){.flow-stage{padding:20px 16px}.flow-head small{width:100%;margin-left:42px}.flow-split,.flow-result,.last-chance-matches,.final-rounds{grid-template-columns:1fr}.flow-arrow{line-height:36px}.champion-line{font-size:19px}}
+
+/* Tournament format visual upgrade */
+.flow-stage{overflow:hidden;background:radial-gradient(circle at 85% 0,rgba(115,35,255,.12),transparent 32%),linear-gradient(135deg,#080c12,#0a0f1a)}
+.flow-stage:after{content:'';position:absolute;right:-70px;top:-70px;width:180px;height:180px;border:1px solid rgba(113,55,255,.22);transform:rotate(45deg);pointer-events:none}
+.flow-head h3{text-shadow:0 0 22px rgba(255,22,72,.22)}
+.flow-desc em{font-style:normal;color:var(--red);font-weight:900}
+.map-badge{display:flex;align-items:center;gap:12px;width:max-content;max-width:100%;margin:0 auto 18px;padding:9px 15px;border:1px solid #1bbcff;background:linear-gradient(90deg,rgba(0,153,255,.12),rgba(114,34,255,.12));box-shadow:0 0 24px rgba(27,188,255,.08);clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.map-badge b{font:700 10px Rajdhani;letter-spacing:2px;color:#8b96a7}.map-badge strong{font:900 22px Rajdhani;letter-spacing:1px;color:#fff}.map-badge span{font-size:11px;color:#8fa0b6}
+.map-badge.last{border-color:#ff9c19;background:linear-gradient(90deg,rgba(255,156,25,.12),rgba(255,22,72,.08));box-shadow:0 0 24px rgba(255,156,25,.08)}
+.revival-stage{border-color:#5d3340}.final-stage{border-color:#69366e;background:radial-gradient(circle at 85% 0,rgba(196,54,255,.13),transparent 35%),linear-gradient(135deg,#080c12,#110b18)}
+.flow-arrow{filter:drop-shadow(0 0 8px rgba(255,22,72,.5))}
+@media(max-width:600px){.map-badge{margin-left:0}.map-badge strong{font-size:19px}}
