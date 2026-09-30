@@ -31,3 +31,23 @@
 .revival-stage{border-color:#5d3340}.final-stage{border-color:#69366e;background:radial-gradient(circle at 85% 0,rgba(196,54,255,.13),transparent 35%),linear-gradient(135deg,#080c12,#110b18)}
 .flow-arrow{filter:drop-shadow(0 0 8px rgba(255,22,72,.5))}
 @media(max-width:600px){.map-badge{margin-left:0}.map-badge strong{font-size:19px}}
+
+
+/* NSCC 60-player roster */
+.roster-section{background:radial-gradient(circle at 80% 5%,rgba(255,22,72,.09),transparent 28%),#05070b}
+.roster-hero{display:flex;align-items:flex-end;justify-content:space-between;padding:30px 34px;margin-bottom:14px;border:1px solid #343d4b;border-left:4px solid var(--red);background:linear-gradient(110deg,#0d131d,#080b11);position:relative;overflow:hidden}
+.roster-hero:after{content:'NSCC';position:absolute;right:7%;top:-28px;font:900 italic 120px Rajdhani;color:rgba(255,255,255,.025)}
+.roster-hero p{margin:0 0 8px;color:#8c96a5;font:700 11px Rajdhani;letter-spacing:3px}.roster-hero h3{margin:0;font:900 36px Rajdhani;line-height:.9;letter-spacing:1px}.roster-hero h3 b{color:var(--red)}.roster-hero>span{color:var(--red);font:900 17px Rajdhani;letter-spacing:3px}
+.roster-note{margin:0 0 24px;color:#7f8998;font-size:11px;text-align:right}
+.roster-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.roster-card{background:linear-gradient(145deg,#0d131d,#080b11);border:1px solid #293240;position:relative;overflow:hidden;transition:.25s;box-shadow:0 14px 35px rgba(0,0,0,.18)}
+.roster-card:before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--red)}
+.roster-card:hover{transform:translateY(-4px);border-color:rgba(255,22,72,.75);box-shadow:0 18px 45px rgba(255,22,72,.08)}
+.roster-head{min-height:88px;display:flex;align-items:center;padding:15px 18px 15px 20px;background:linear-gradient(100deg,rgba(255,22,72,.13),transparent 60%);border-bottom:1px solid #293240}
+.roster-head>span{font:900 italic 58px Rajdhani;color:var(--red);line-height:1;margin-right:15px;text-shadow:3px 3px 0 rgba(255,22,72,.12)}
+.roster-head div{min-width:0}.roster-head div small{display:block;color:#707b8a;font:700 8px Rajdhani;letter-spacing:1.7px}.roster-head div strong{display:block;font:900 23px Rajdhani;letter-spacing:1px}.roster-head>em{margin-left:auto;font:700 10px Rajdhani;color:#a4adba;font-style:normal;border:1px solid #3a4554;padding:5px 7px}
+.roster-cols,.roster-row{display:grid;grid-template-columns:34px minmax(90px,.8fr) minmax(130px,1.2fr);align-items:center}
+.roster-cols{padding:8px 14px 8px 20px;background:#070a0f;border-bottom:1px solid #252d3a}.roster-cols b{color:#596474;font:700 8px Rajdhani;letter-spacing:1.4px}
+.roster-row{min-height:51px;padding:7px 14px 7px 20px;border-bottom:1px solid rgba(37,45,58,.72)}.roster-row:last-child{border-bottom:0}.roster-row>span{color:var(--red);font:700 11px Rajdhani}.roster-row>strong{font-size:11px;overflow-wrap:anywhere;padding-right:8px}.roster-row>small{font-size:9px;color:#9ca6b4;overflow-wrap:anywhere;line-height:1.35}
+@media(max-width:1100px){.roster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.roster-grid{grid-template-columns:1fr}.roster-hero{padding:22px;align-items:flex-start;flex-direction:column;gap:18px}.roster-hero h3{font-size:31px}.roster-note{text-align:left}.roster-cols,.roster-row{grid-template-columns:30px minmax(80px,.8fr) minmax(110px,1.2fr)}.roster-row>strong{font-size:10px}.roster-row>small{font-size:8px}}
