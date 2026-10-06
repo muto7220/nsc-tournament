@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSCC | 先攻・後攻決定 LIVE</title>
+<meta name="description" content="NSCC 先攻・後攻決定 LIVE">
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<style>
+:root{--bg:#05070b;--panel:#0d131d;--line:#293240;--red:#ff1648;--text:#f4f6f8;--muted:#8f99a8;--green:#39d98a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 78% 4%,rgba(255,22,72,.11),transparent 30%),var(--bg);color:var(--text);font-family:"Yu Gothic","Noto Sans JP",system-ui,sans-serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 70px,rgba(255,255,255,.018) 71px)}
+.wrap{max-width:1180px;margin:auto;padding:28px 24px 56px;position:relative}.top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px;flex-wrap:wrap}.brand{font-weight:900;font-style:italic;font-size:34px;letter-spacing:2px}.brand b{color:var(--red)}.right-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.back{color:#fff;text-decoration:none;border:1px solid var(--line);padding:10px 14px;font-size:12px}.back:hover{border-color:var(--red)}
+.live-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid #2e3b45;background:#0b1118;padding:9px 12px;font-size:11px;font-weight:900;letter-spacing:1px}.dot{width:8px;height:8px;border-radius:50%;background:#777}.live-badge.online .dot{background:var(--green);box-shadow:0 0 12px rgba(57,217,138,.55)}.live-badge.host .dot{background:var(--red);box-shadow:0 0 12px rgba(255,22,72,.55)}
+.hero{border:1px solid var(--line);border-left:4px solid var(--red);padding:28px 30px;background:linear-gradient(110deg,#0d131d,#080b11);position:relative;overflow:hidden}.hero:after{content:"SIDE SELECT";position:absolute;right:4%;top:-28px;font-size:92px;font-weight:900;font-style:italic;color:rgba(255,255,255,.025);white-space:nowrap}.hero small{color:var(--red);font-weight:800;letter-spacing:3px}.hero h1{font-size:clamp(30px,5vw,52px);margin:8px 0}.hero p{color:var(--muted);margin:0;line-height:1.8;font-size:13px}
+.viewer-info{margin-top:14px;border:1px solid #2a3441;background:#0a0f16;padding:13px 16px;color:#aab3c0;font-size:12px;line-height:1.7}.viewer-info b{color:#fff}
+.panel{margin-top:18px;background:rgba(13,19,29,.96);border:1px solid var(--line);padding:22px}.host-only{display:none}.hostmode .host-only{display:block}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;color:#aab2bd;font-size:12px;margin-bottom:8px}select,button{font:inherit}select{width:100%;background:#070a0f;color:#fff;border:1px solid #3a4554;padding:13px 14px;border-radius:7px;font-weight:700}
+button{border:1px solid var(--red);background:var(--red);color:#fff;padding:13px 17px;border-radius:7px;font-weight:900;cursor:pointer}button.alt{background:#111720;border-color:#3a4554}button.reset{background:#240b12;border-color:#6a2638}button:disabled{opacity:.35;cursor:not-allowed}
+.matchbox{margin-top:18px;border:1px solid #323d4b;background:linear-gradient(135deg,#0b1118,#080b11);padding:24px;text-align:center}.matchbox small{display:block;color:var(--red);font-weight:900;letter-spacing:2px}.versus{display:grid;grid-template-columns:1fr 70px 1fr;align-items:center;gap:12px;margin-top:13px}.versus strong{font-size:clamp(18px,3vw,28px)}.versus b{color:var(--red);font-size:24px}
+.coin-choices{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.choice{border:1px solid #394554;background:#090e15;padding:18px;text-align:center}.choice span{display:block;color:#8f99a8;font-size:11px;margin-bottom:6px}.choice strong{font-size:18px}.choice em{display:block;margin-top:9px;color:var(--red);font-style:normal;font-weight:900}
+.actionrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.coin{margin:22px auto 4px;width:132px;height:132px;border-radius:50%;border:3px solid var(--red);display:grid;place-items:center;background:radial-gradient(circle,#1a202b,#080b10);box-shadow:0 0 34px rgba(255,22,72,.13);font-size:34px;font-weight:900}.coin.spin{animation:spin .75s cubic-bezier(.2,.8,.2,1)}@keyframes spin{to{transform:rotateY(1080deg) rotateX(360deg)}}
+.result{display:none;margin-top:18px;border:1px solid var(--red);background:rgba(255,22,72,.06);padding:22px;text-align:center}.result.show{display:block}.result small{color:var(--red);font-weight:900;letter-spacing:2px}.result h3{font-size:27px;margin:8px 0}.side-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.finalcards{margin-top:24px}.finalcards h2{font-size:17px}.finalcard{display:grid;grid-template-columns:45px minmax(0,1fr) 85px 28px 85px minmax(0,1fr);gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:14px 8px}.finalcard>span{color:var(--red);font-size:11px;font-weight:900}.finalcard strong{font-size:13px}.finalcard b{font-size:11px;text-align:center;padding:5px;border:1px solid #394554}.finalcard i{font-style:normal;text-align:center;color:var(--red);font-weight:900}.empty{color:#778291;font-size:13px;padding:8px 0}.note{margin-top:18px;color:#778291;font-size:11px;line-height:1.8;border-left:2px solid var(--red);padding-left:12px}
+@media(max-width:760px){.controls{grid-template-columns:1fr}.versus{grid-template-columns:1fr}.versus b{font-size:16px}.coin-choices{grid-template-columns:1fr}.finalcard{grid-template-columns:1fr;text-align:center;border:1px solid var(--line);margin-bottom:10px}.finalcard i{display:block}.hero{padding:22px}.hero:after{font-size:62px}}
+</style>
+</head>
+<body><div class="wrap" id="app">
+<div class="top"><div class="brand">NS<b>CC</b></div><div class="right-top"><div id="status" class="live-badge"><span class="dot"></span><span id="statusText">接続準備中</span></div><a class="back" href="./">← 大会サイトへ戻る</a></div></div>
+<section class="hero"><small>NARIAGARI SERVER CHALLENGE CUP</small><h1>先攻・後攻 決定 LIVE</h1><p>代表者同士で表・裏を決めてコイントス。勝ったチームが先攻・後攻を選択します。</p></section>
+<div class="viewer-info" id="viewerInfo"><b>閲覧モード</b>：主催者の進行がリアルタイムで反映されます。</div>
+<section class="panel">
+<div class="controls host-only">
+  <div class="field"><label>① 対戦カード</label><select id="matchSelect"></select></div>
+  <div class="field"><label>② 「表」を選ぶチーム</label><select id="headsSelect"></select></div>
+</div>
+<div class="matchbox">
+  <small>SELECTED MATCH</small>
+  <div class="versus"><strong id="teamA">対戦カードを選択</strong><b>VS</b><strong id="teamB">---</strong></div>
+  <div class="coin-choices"><div class="choice"><span>表 / HEADS</span><strong id="headsTeam">---</strong><em>表</em></div><div class="choice"><span>裏 / TAILS</span><strong id="tailsTeam">---</strong><em>裏</em></div></div>
+  <div class="coin" id="coin">?</div>
+  <div class="actionrow host-only"><button id="toss">コイントス！</button><button class="alt" id="clearCurrent">この対戦をやり直す</button><button class="reset" id="resetAll">全結果リセット</button></div>
+</div>
+<div class="result" id="result"><small>COIN TOSS WINNER</small><h3 id="winnerText"></h3><div class="side-buttons host-only"><button id="chooseFirst">先攻を選択</button><button class="alt" id="chooseSecond">後攻を選択</button></div><p id="choiceHint" style="color:#8f99a8;font-size:12px;margin:10px 0 0"></p></div>
+<div class="finalcards"><h2>⚔ 決定した先攻・後攻</h2><div id="finalList" class="empty">まだ決定していません。</div></div>
+<div class="note" id="note">LIVE VIEW：ページを開いたままでOKです。主催者の操作が自動で反映されます。</div>
+</section>
+</div>
+<script>
+const MATCHES=[
+ ["オーディン胴打ち界隈","とっとこ走るよもす太郎"],
+ ["ドパガキjack","サビ残賛美する産業"],
+ ["chiぬーず","佐藤9"],
+ ["中山げんきくん","ネオン・ダメ・ゼッタイ"],
+ ["ふぁいぶでゅえりすと","load-of-time"],
+ ["クラッちゃんポン","ペンタgon"]
+];
+const params=new URLSearchParams(location.search),isHost=params.get("host")==="1",HOST_ID="nscc-side-2026-main";
+const app=document.getElementById("app"),status=document.getElementById("status"),statusText=document.getElementById("statusText"),viewerInfo=document.getElementById("viewerInfo"),matchSelect=document.getElementById("matchSelect"),headsSelect=document.getElementById("headsSelect");
+let state={matchIndex:0,heads:"",coinResult:"",winner:"",results:Array(MATCHES.length).fill(null)};
+let peer=null,connections=[],viewerConn=null,reconnectTimer=null;
+if(isHost){app.classList.add("hostmode");status.classList.add("host");viewerInfo.innerHTML="<b>主催者モード</b>：表・裏 → コイントス → 勝者が先攻・後攻を選択、の順で進めます。";}
+else{app.classList.add("viewer");viewerInfo.innerHTML="<b>閲覧モード</b>：主催者の操作がこの画面にリアルタイムで反映されます。";}
+
+function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function setStatus(t,on){statusText.textContent=t;status.classList.toggle("online",!!on);if(isHost)status.classList.add("host")}
+function save(){if(isHost)try{localStorage.setItem("nsccSideStateV1",JSON.stringify(state))}catch(e){}}
+function load(){if(!isHost)return;try{const r=localStorage.getItem("nsccSideStateV1");if(r){const s=JSON.parse(r);if(s&&Array.isArray(s.results))state=s}}catch(e){}}
+function broadcast(){const msg={type:"state",state};connections=connections.filter(c=>c&&c.open);connections.forEach(c=>{try{c.send(msg)}catch(e){}})}
+function randomCoin(){const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%2===0?"表":"裏"}
+function setupControls(){
+  if(!isHost)return;
+  matchSelect.innerHTML=MATCHES.map((m,i)=>'<option value="'+i+'">対戦 '+(i+1)+'｜'+esc(m[0])+' VS '+esc(m[1])+'</option>').join("");
+  matchSelect.value=String(state.matchIndex||0);
+  refreshHeads();
+}
+function refreshHeads(){
+  if(!isHost)return;
+  const m=MATCHES[state.matchIndex];
+  headsSelect.innerHTML='<option value="'+esc(m[0])+'">'+esc(m[0])+'</option><option value="'+esc(m[1])+'">'+esc(m[1])+'</option>';
+  if(!state.heads||!m.includes(state.heads))state.heads=m[0];
+  headsSelect.value=state.heads;
+}
+function current(){return MATCHES[state.matchIndex]||MATCHES[0]}
+function render(){
+  const m=current(),heads=state.heads&&m.includes(state.heads)?state.heads:m[0],tails=m[0]===heads?m[1]:m[0];
+  document.getElementById("teamA").textContent=m[0];document.getElementById("teamB").textContent=m[1];
+  document.getElementById("headsTeam").textContent=heads;document.getElementById("tailsTeam").textContent=tails;
+  const coin=document.getElementById("coin");coin.textContent=state.coinResult||"?";
+  const res=document.getElementById("result"),hint=document.getElementById("choiceHint");
+  if(state.winner){res.classList.add("show");document.getElementById("winnerText").textContent=state.winner+" の勝ち！";hint.textContent=state.results[state.matchIndex]?"先攻・後攻が決定しました。":"勝ったチームが先攻・後攻を選んでください。";}
+  else{res.classList.remove("show")}
+  if(isHost){matchSelect.value=String(state.matchIndex);refreshHeads();headsSelect.value=heads}
+  const box=document.getElementById("finalList"),done=state.results.map((r,i)=>({r,i})).filter(x=>x.r);
+  if(!done.length){box.className="empty";box.textContent="まだ決定していません。";}
+  else{box.className="";box.innerHTML=done.map(x=>'<div class="finalcard"><span>'+String(x.i+1).padStart(2,"0")+'</span><strong>'+esc(x.r.first)+'</strong><b>先攻</b><i>VS</i><b>後攻</b><strong>'+esc(x.r.second)+'</strong></div>').join("")}
+}
+function clearCurrent(){
+  state.coinResult="";state.winner="";state.results[state.matchIndex]=null;save();render();broadcast();
+}
+function choose(side){
+  if(!state.winner)return;
+  const m=current(),loser=m[0]===state.winner?m[1]:m[0];
+  state.results[state.matchIndex]=side==="first"?{first:state.winner,second:loser}:{first:loser,second:state.winner};
+  save();render();broadcast();
+}
+function toss(){
+  const m=current(),heads=state.heads&&m.includes(state.heads)?state.heads:m[0],tails=m[0]===heads?m[1]:m[0];
+  state.coinResult=randomCoin();state.winner=state.coinResult==="表"?heads:tails;state.results[state.matchIndex]=null;
+  const coin=document.getElementById("coin");coin.classList.remove("spin");void coin.offsetWidth;coin.classList.add("spin");
+  setTimeout(()=>{coin.classList.remove("spin");render();save();broadcast()},760);
+  save();broadcast();
+}
+function applyRemote(msg){if(!msg||msg.type!=="state"||!msg.state)return;state=msg.state;render()}
+function initHost(){
+  if(typeof Peer==="undefined"){setStatus("LIVE機能の読込失敗",false);return}
+  setStatus("配信接続中",false);peer=new Peer(HOST_ID);
+  peer.on("open",()=>{setStatus("LIVE配信中",true);broadcast()});
+  peer.on("connection",c=>{connections.push(c);c.on("open",()=>{try{c.send({type:"state",state})}catch(e){};setStatus("LIVE配信中 / 閲覧 "+connections.filter(x=>x.open).length+"人",true)});c.on("close",()=>setStatus("LIVE配信中 / 閲覧 "+connections.filter(x=>x.open).length+"人",true))});
+  peer.on("error",e=>{if(e&&e.type==="unavailable-id"){setStatus("主催者接続を再試行中",false);try{peer.destroy()}catch(x){};clearTimeout(reconnectTimer);reconnectTimer=setTimeout(initHost,3000)}else setStatus("LIVE接続エラー",false)});
+}
+function connectViewer(){
+  if(typeof Peer==="undefined"){setStatus("LIVE機能の読込失敗",false);return}
+  if(peer)try{peer.destroy()}catch(e){}
+  setStatus("主催者の接続待ち",false);peer=new Peer();
+  peer.on("open",()=>{viewerConn=peer.connect(HOST_ID,{reliable:true});viewerConn.on("open",()=>setStatus("LIVE接続中",true));viewerConn.on("data",applyRemote);viewerConn.on("close",schedule);viewerConn.on("error",schedule)});
+  peer.on("error",schedule);
+}
+function schedule(){setStatus("主催者の接続待ち",false);clearTimeout(reconnectTimer);reconnectTimer=setTimeout(connectViewer,2500)}
+load();if(isHost){setupControls();matchSelect.addEventListener("change",()=>{state.matchIndex=Number(matchSelect.value);state.coinResult="";state.winner="";state.heads="";refreshHeads();state.heads=headsSelect.value;save();render();broadcast()});headsSelect.addEventListener("change",()=>{state.heads=headsSelect.value;state.coinResult="";state.winner="";state.results[state.matchIndex]=null;save();render();broadcast()});document.getElementById("toss").addEventListener("click",toss);document.getElementById("clearCurrent").addEventListener("click",()=>{if(confirm("この対戦の結果をやり直しますか？"))clearCurrent()});document.getElementById("resetAll").addEventListener("click",()=>{if(confirm("先攻・後攻の全結果をリセットしますか？")){state={matchIndex:0,heads:"",coinResult:"",winner:"",results:Array(MATCHES.length).fill(null)};setupControls();save();render();broadcast()}});document.getElementById("chooseFirst").addEventListener("click",()=>choose("first"));document.getElementById("chooseSecond").addEventListener("click",()=>choose("second"));initHost()}else connectViewer();
+render();
+</script></body></html>
