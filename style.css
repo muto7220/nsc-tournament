@@ -68,3 +68,34 @@
 .day-timeline article.finish .day-body{background:radial-gradient(circle at 90% 0,rgba(255,22,72,.14),transparent 35%),linear-gradient(135deg,#0d131d,#0d080d);border-color:var(--red)}.day-timeline article.finish .day-body span{color:var(--red);font:900 11px Rajdhani;letter-spacing:2px}
 .dayflow-note{max-width:945px;margin:28px 0 0 auto;border-left:3px solid var(--red);background:#0b1018;padding:20px 24px}.dayflow-note b{color:var(--red);font:900 11px Rajdhani;letter-spacing:3px}.dayflow-note p{margin:7px 0 0;color:#929ca9;font-size:11px;line-height:1.8}
 @media(max-width:650px){.dayflow-hero{padding:25px 22px;display:block}.dayflow-hero h3{font-size:30px}.dayflow-hero>strong{margin-top:24px;text-align:left;font-size:40px}.day-timeline:before{left:17px}.day-timeline article{grid-template-columns:35px 1fr;min-height:0}.day-time{grid-column:2;padding:18px 0 4px 14px;text-align:left;font-size:16px}.day-step{grid-column:1;grid-row:1/3;width:30px;height:30px;margin:21px 0 0 2px}.day-body{grid-column:2;margin:0 0 14px 14px;padding:20px}.day-body h3{font-size:18px}.dayflow-note{margin-left:49px}}
+
+
+/* NSCC Official Matchups */
+.matchup-section{position:relative;overflow:hidden;background:
+radial-gradient(circle at 82% 8%,rgba(255,22,72,.14),transparent 28%),
+linear-gradient(180deg,#05070b,#080c12);border-block:1px solid #1b222d}
+.matchup-section:before{content:'MATCHUPS';position:absolute;right:4vw;top:28px;font:900 italic 110px Rajdhani;color:rgba(255,255,255,.022);letter-spacing:3px;pointer-events:none}
+.matchup-topline{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:34px 38px;border:1px solid #343d4b;border-left:4px solid var(--red);background:linear-gradient(115deg,#0d131d,#080b11);overflow:hidden}
+.matchup-topline:after{content:'';position:absolute;right:-70px;top:-75px;width:190px;height:190px;border:1px solid rgba(255,22,72,.2);transform:rotate(45deg)}
+.matchup-topline p{margin:0 0 8px;color:var(--red);font:700 11px Rajdhani;letter-spacing:3px}
+.matchup-topline h2{margin:0;font-size:42px;line-height:1}.matchup-topline h2 b{color:var(--red)}
+.matchup-topline span{display:block;margin-top:12px;color:#8f99a8;font:700 11px Rajdhani;letter-spacing:2px}
+.matchup-lock{min-width:125px;text-align:center;padding:14px 16px;border:1px solid rgba(255,22,72,.55);background:rgba(255,22,72,.06);position:relative;z-index:1}
+.matchup-lock small{display:block;color:#8f99a8;font:700 9px Rajdhani;letter-spacing:2px}.matchup-lock strong{display:block;margin-top:3px;color:var(--red);font:900 22px Rajdhani;letter-spacing:2px}
+.matchup-intro{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:24px 0 12px;padding:0 4px}
+.matchup-intro span{color:var(--red);font:900 12px Rajdhani;letter-spacing:3px}.matchup-intro p{margin:0;color:#8f99a8;font-size:12px}
+.official-matchups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.official-match{position:relative;min-height:154px;padding:44px 26px 22px;display:grid;grid-template-columns:1fr 56px 1fr;align-items:center;gap:14px;border:1px solid #303947;background:
+linear-gradient(145deg,rgba(255,22,72,.04),transparent 38%),
+linear-gradient(135deg,#0d131d,#080b11);overflow:hidden;box-shadow:0 14px 36px rgba(0,0,0,.16);transition:.25s}
+.official-match:before{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:var(--red)}
+.official-match:hover{transform:translateY(-4px);border-color:rgba(255,22,72,.7);box-shadow:0 18px 45px rgba(255,22,72,.08)}
+.official-match .match-label{position:absolute;left:25px;top:16px;color:var(--red);font:900 10px Rajdhani;letter-spacing:2px}
+.official-match>i{position:absolute;right:18px;top:8px;font:900 italic 48px Rajdhani;color:rgba(255,255,255,.045);font-style:italic;line-height:1}
+.official-match .team-name{font-weight:900;font-size:17px;line-height:1.45;text-align:center;overflow-wrap:anywhere}
+.official-match>b{color:var(--red);font:900 22px Rajdhani;text-align:center;text-shadow:0 0 18px rgba(255,22,72,.25)}
+.official-match.feature{border-color:rgba(255,22,72,.55);background:radial-gradient(circle at 50% 50%,rgba(255,22,72,.08),transparent 50%),linear-gradient(135deg,#0d131d,#0b0910)}
+.matchup-foot{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:18px;padding:18px 22px;border-left:3px solid var(--red);background:#0b1018}
+.matchup-foot span{white-space:nowrap;color:var(--red);font:900 11px Rajdhani;letter-spacing:2px}.matchup-foot p{margin:0;color:#8f99a8;font-size:11px;line-height:1.7;text-align:right}
+@media(max-width:850px){.official-matchups{grid-template-columns:1fr}.matchup-topline h2{font-size:34px}.matchup-section:before{font-size:78px}.matchup-foot{display:block}.matchup-foot p{margin-top:8px;text-align:left}}
+@media(max-width:560px){.matchup-topline{padding:25px 22px;display:block}.matchup-lock{margin-top:20px;width:max-content}.matchup-intro{display:block}.matchup-intro p{margin-top:6px}.official-match{grid-template-columns:1fr;gap:7px;padding:46px 18px 20px;min-height:170px}.official-match>b{font-size:18px}.official-match .team-name{font-size:16px}}
