@@ -19,7 +19,19 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:rep
 button{border:1px solid var(--red);background:var(--red);color:#fff;padding:13px 17px;border-radius:7px;font-weight:900;cursor:pointer}button.alt{background:#111720;border-color:#3a4554}button.reset{background:#240b12;border-color:#6a2638}button:disabled{opacity:.35;cursor:not-allowed}
 .matchbox{margin-top:18px;border:1px solid #323d4b;background:linear-gradient(135deg,#0b1118,#080b11);padding:24px;text-align:center}.matchbox small{display:block;color:var(--red);font-weight:900;letter-spacing:2px}.versus{display:grid;grid-template-columns:1fr 70px 1fr;align-items:center;gap:12px;margin-top:13px}.versus strong{font-size:clamp(18px,3vw,28px)}.versus b{color:var(--red);font-size:24px}
 .coin-choices{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.choice{border:1px solid #394554;background:#090e15;padding:18px;text-align:center}.choice span{display:block;color:#8f99a8;font-size:11px;margin-bottom:6px}.choice strong{font-size:18px}.choice em{display:block;margin-top:9px;color:var(--red);font-style:normal;font-weight:900}
-.actionrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.coin{margin:22px auto 4px;width:132px;height:132px;border-radius:50%;border:3px solid var(--red);display:grid;place-items:center;background:radial-gradient(circle,#1a202b,#080b10);box-shadow:0 0 34px rgba(255,22,72,.13);font-size:34px;font-weight:900}.coin.spin{animation:spin .75s cubic-bezier(.2,.8,.2,1)}@keyframes spin{to{transform:rotateY(1080deg) rotateX(360deg)}}
+.actionrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.coin-wrap{perspective:1200px;display:flex;justify-content:center;margin:24px auto 8px}
+.coin3d{position:relative;width:156px;height:156px;transform-style:preserve-3d;transition:transform .95s cubic-bezier(.2,.8,.2,1)}
+.coin3d.spin-heads{transform:rotateY(1080deg)}
+.coin3d.spin-tails{transform:rotateY(1260deg)}
+.coin-face{position:absolute;inset:0;border-radius:50%;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.18),transparent 26%),radial-gradient(circle at 72% 72%,rgba(0,0,0,.4),transparent 34%),linear-gradient(145deg,#3a0010,#090b10 55%,#5b0019);border:4px solid var(--red);box-shadow:0 0 34px rgba(255,22,72,.28),inset 0 0 28px rgba(255,22,72,.16),inset 0 0 55px rgba(0,0,0,.5)}
+.coin-face:before{content:"";position:absolute;inset:7px;border-radius:50%;border:1px solid rgba(255,255,255,.12)}
+.coin-face:after{content:"";position:absolute;inset:15px;border-radius:50%;border:2px solid rgba(255,22,72,.34);box-shadow:inset 0 0 18px rgba(255,22,72,.16)}
+.coin-back{transform:rotateY(180deg)}
+.coin-core{position:relative;z-index:2;text-align:center;line-height:1}
+.coin-core small{display:block;color:#ff6b8e;font-weight:900;letter-spacing:3px;font-size:14px;margin-bottom:8px;text-shadow:0 0 10px rgba(255,22,72,.4)}
+.coin-core strong{display:block;font-size:44px;font-weight:900;color:#fff;text-shadow:0 0 14px rgba(255,22,72,.4)}
+.coin-core span{display:block;margin-top:9px;color:#c1c7d0;font-size:11px;font-weight:900;letter-spacing:2px}
+.coin-edge{position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(255,255,255,.06);pointer-events:none}
 .result{display:none;margin-top:18px;border:1px solid var(--red);background:rgba(255,22,72,.06);padding:22px;text-align:center}.result.show{display:block}.result small{color:var(--red);font-weight:900;letter-spacing:2px}.result h3{font-size:27px;margin:8px 0}.side-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .finalcards{margin-top:24px}.finalcards h2{font-size:17px}.finalcard{display:grid;grid-template-columns:45px minmax(0,1fr) 85px 28px 85px minmax(0,1fr);gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:14px 8px}.finalcard>span{color:var(--red);font-size:11px;font-weight:900}.finalcard strong{font-size:13px}.finalcard b{font-size:11px;text-align:center;padding:5px;border:1px solid #394554}.finalcard i{font-style:normal;text-align:center;color:var(--red);font-weight:900}.empty{color:#778291;font-size:13px;padding:8px 0}.note{margin-top:18px;color:#778291;font-size:11px;line-height:1.8;border-left:2px solid var(--red);padding-left:12px}
 @media(max-width:760px){.controls{grid-template-columns:1fr}.versus{grid-template-columns:1fr}.versus b{font-size:16px}.coin-choices{grid-template-columns:1fr}.finalcard{grid-template-columns:1fr;text-align:center;border:1px solid var(--line);margin-bottom:10px}.finalcard i{display:block}.hero{padding:22px}.hero:after{font-size:62px}}
@@ -38,7 +50,18 @@ button{border:1px solid var(--red);background:var(--red);color:#fff;padding:13px
   <small>SELECTED MATCH</small>
   <div class="versus"><strong id="teamA">対戦カードを選択</strong><b>VS</b><strong id="teamB">---</strong></div>
   <div class="coin-choices"><div class="choice"><span>表 / HEADS</span><strong id="headsTeam">---</strong><em>表</em></div><div class="choice"><span>裏 / TAILS</span><strong id="tailsTeam">---</strong><em>裏</em></div></div>
-  <div class="coin" id="coin">?</div>
+  <div class="coin-wrap">
+  <div class="coin3d" id="coin3d">
+    <div class="coin-face coin-front">
+      <div class="coin-edge"></div>
+      <div class="coin-core"><small>NSCC</small><strong>表</strong><span>HEADS</span></div>
+    </div>
+    <div class="coin-face coin-back">
+      <div class="coin-edge"></div>
+      <div class="coin-core"><small>NSCC</small><strong>裏</strong><span>TAILS</span></div>
+    </div>
+  </div>
+</div>
   <div class="actionrow host-only"><button id="toss">コイントス！</button><button class="alt" id="clearCurrent">この対戦をやり直す</button><button class="reset" id="resetAll">全結果リセット</button></div>
 </div>
 <div class="result" id="result"><small>COIN TOSS WINNER</small><h3 id="winnerText"></h3><div class="side-buttons host-only"><button id="chooseFirst">先攻を選択</button><button class="alt" id="chooseSecond">後攻を選択</button></div><p id="choiceHint" style="color:#8f99a8;font-size:12px;margin:10px 0 0"></p></div>
@@ -86,7 +109,7 @@ function render(){
   const m=current(),heads=state.heads&&m.includes(state.heads)?state.heads:m[0],tails=m[0]===heads?m[1]:m[0];
   document.getElementById("teamA").textContent=m[0];document.getElementById("teamB").textContent=m[1];
   document.getElementById("headsTeam").textContent=heads;document.getElementById("tailsTeam").textContent=tails;
-  const coin=document.getElementById("coin");coin.textContent=state.coinResult||"?";
+  const coin=document.getElementById("coin3d");coin.classList.remove("spin-heads","spin-tails");if(state.coinResult==="表")coin.style.transform="rotateY(0deg)";else if(state.coinResult==="裏")coin.style.transform="rotateY(180deg)";else coin.style.transform="rotateY(0deg)";
   const res=document.getElementById("result"),hint=document.getElementById("choiceHint");
   if(state.winner){res.classList.add("show");document.getElementById("winnerText").textContent=state.winner+" の勝ち！";hint.textContent=state.results[state.matchIndex]?"先攻・後攻が決定しました。":"勝ったチームが先攻・後攻を選んでください。";}
   else{res.classList.remove("show")}
@@ -106,9 +129,18 @@ function choose(side){
 }
 function toss(){
   const m=current(),heads=state.heads&&m.includes(state.heads)?state.heads:m[0],tails=m[0]===heads?m[1]:m[0];
-  state.coinResult=randomCoin();state.winner=state.coinResult==="表"?heads:tails;state.results[state.matchIndex]=null;
-  const coin=document.getElementById("coin");coin.classList.remove("spin");void coin.offsetWidth;coin.classList.add("spin");
-  setTimeout(()=>{coin.classList.remove("spin");render();save();broadcast()},760);
+  const result=randomCoin();
+  state.coinResult=result;state.winner=result==="表"?heads:tails;state.results[state.matchIndex]=null;
+  const coin=document.getElementById("coin3d");
+  coin.style.transform="";
+  coin.classList.remove("spin-heads","spin-tails");
+  void coin.offsetWidth;
+  coin.classList.add(result==="表"?"spin-heads":"spin-tails");
+  setTimeout(()=>{
+    coin.classList.remove("spin-heads","spin-tails");
+    coin.style.transform=result==="表"?"rotateY(0deg)":"rotateY(180deg)";
+    render();save();broadcast();
+  },960);
   save();broadcast();
 }
 function applyRemote(msg){if(!msg||msg.type!=="state"||!msg.state)return;state=msg.state;render()}
