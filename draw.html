@@ -58,7 +58,7 @@ function loadHost(){if(!isHost)return;try{const raw=localStorage.getItem("nsccDr
 function setStatus(text,mode){statusText.textContent=text;status.classList.toggle("online",mode==="online");if(isHost)status.classList.add("host")}
 function renderMatches(){
  const box=document.getElementById("matchList");
- if(!matches.length){box.className="empty";box.textContent="まだ対戦カードは決まっていません。}
+ if(!matches.length){box.className="empty";box.textContent="まだ対戦カードは決まっていません。";return}
  else{box.className="";box.innerHTML=matches.map((m,i)=>'<div class="match"><span>試合 '+(i+1)+'</span><strong>'+escapeHtml(m[0])+'</strong><i>VS</i><strong>'+escapeHtml(m[1])+'</strong></div>').join("")}
  if(matches.length===6){guide.textContent="全6試合の対戦カードが決定しました！";guide.classList.add("done");subguide.textContent="抽選終了です。"}
 }
