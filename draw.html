@@ -25,6 +25,14 @@ button{border:1px solid var(--red);background:var(--red);color:#fff;padding:13px
 .matches{margin-top:22px}.matches h2{font-size:17px}.match{display:grid;grid-template-columns:72px 1fr 48px 1fr;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:12px 8px}.match span{color:var(--red);font-size:11px;font-weight:900}.match i{font-style:normal;text-align:center;color:var(--red);font-weight:900}.empty{color:#778291;font-size:13px;padding:8px 0}.done{color:var(--red)!important}
 .host-only{display:none}.hostmode .host-only{display:flex}.hostmode .viewer-info{border-color:#5a2634}.hostmode .ticket{cursor:pointer}
 .note{margin-top:18px;color:#778291;font-size:11px;line-height:1.8;border-left:2px solid var(--red);padding-left:12px}
+.roundbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px;padding:14px 16px;border:1px solid #27313d;background:#090e15}
+.roundtitle{font-size:18px;font-weight:900}.roundtitle b{color:var(--red)}
+.phase-field{min-width:260px}.phase-field label{margin-bottom:6px}
+.setup{margin:0 0 18px;border:1px solid #394554;background:#090e15;padding:16px}.setup h3{margin:0 0 8px;font-size:15px}.setup p{margin:0 0 12px;color:var(--muted);font-size:12px;line-height:1.7}
+.teamchecks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.teamcheck{display:flex;align-items:center;gap:8px;border:1px solid #303b48;background:#0b1118;padding:10px;font-size:12px;cursor:pointer}.teamcheck input{accent-color:var(--red)}
+.setup-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.setup-count{font-size:12px;color:#aab3c0}.setup-count b{color:var(--red);font-size:16px}
+.setup.host-only{display:none}.hostmode .setup.host-only.show{display:block}
+@media(max-width:760px){.teamchecks{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:850px){.tickets{grid-template-columns:repeat(3,1fr)}.match{grid-template-columns:55px 1fr 35px 1fr}.hero{padding:22px}.hero:after{font-size:75px}}
 @media(max-width:520px){.tickets{grid-template-columns:repeat(2,1fr)}.ticket{min-height:110px}.match{grid-template-columns:1fr;text-align:center}.match i{display:block}.top{align-items:flex-start}.brand{font-size:27px}}
 </style>
@@ -34,6 +42,16 @@ button{border:1px solid var(--red);background:var(--red);color:#fff;padding:13px
 <section class="hero"><small>NARIAGARI SERVER CHALLENGE CUP</small><h1>対戦相手 抽選 LIVE</h1><p>主催者が抽選すると、同じURLを開いている参加者・運営の画面にも結果がリアルタイムで反映されます。</p></section>
 <div class="viewer-info" id="viewerInfo"><b>閲覧モード</b>：このページは見る専用です。抽選操作は主催者側で行います。</div>
 <section class="panel">
+<div class="roundbar">
+  <div class="roundtitle">現在：<b id="roundLabel">予選1</b></div>
+  <div class="phase-field host-only"><label>抽選するラウンド</label><select id="phase"><option value="r1">予選1</option><option value="r2w">予選2｜勝者側</option><option value="r2l">予選2｜敗者側</option></select></div>
+</div>
+<div class="setup host-only" id="setup">
+  <h3 id="setupTitle">対象6チームを選択</h3>
+  <p>予選1の結果が出たら、この組に入る6チームを選んでください。設定後、その6チームだけで3試合分の抽選ができます。</p>
+  <div class="teamchecks" id="teamChecks"></div>
+  <div class="setup-actions"><button id="setPool">この6チームで抽選開始</button><span class="setup-count">選択中：<b id="selectedCount">0</b> / 6</span></div>
+</div>
 <div class="controls host-only"><div class="field"><label>① 今からくじを引くチーム</label><select id="drawer"></select></div><button class="alt" id="shuffle">くじをシャッフル</button><button class="reset" id="reset">最初から</button></div>
 <div class="guide"><strong id="guide">主催者の抽選開始を待っています</strong><small id="subguide">結果はこの画面に自動反映されます。</small></div>
 <div class="tickets" id="tickets"></div>
@@ -43,105 +61,234 @@ button{border:1px solid var(--red);background:var(--red);color:#fff;padding:13px
 </section></div>
 <script>
 const TEAMS=["どっとこ走るよもす太郎","load-of-time","クラッちゃんポン","chiぬーず","ドンパガキjack","ペンタgon","オーディン胴打ち界隈","中山げんきくん","ふぁいぶでゅえりすと","サビ残轟美する産業","佐藤9","ネオン・ダメ・ゼッタイ"];
+const PHASES={
+  r1:{label:"予選1",target:6},
+  r2w:{label:"予選2｜勝者側",target:3},
+  r2l:{label:"予選2｜敗者側",target:3}
+};
 const params=new URLSearchParams(location.search);
 const isHost=params.get("host")==="1";
-let room=params.get("room")||"MAIN";
+const room=params.get("room")||"MAIN";
 const HOST_ID="nscc-2026-"+room;
-const app=document.getElementById("app"),drawer=document.getElementById("drawer"),tickets=document.getElementById("tickets"),guide=document.getElementById("guide"),subguide=document.getElementById("subguide"),status=document.getElementById("status"),statusText=document.getElementById("statusText"),viewerInfo=document.getElementById("viewerInfo");
-let available=[...TEAMS],matches=[],ticketOrder=[],lastResult=null,currentDrawer="",connections=[],peer=null,viewerConn=null,reconnectTimer=null;
+const app=document.getElementById("app"),drawer=document.getElementById("drawer"),tickets=document.getElementById("tickets"),guide=document.getElementById("guide"),subguide=document.getElementById("subguide"),status=document.getElementById("status"),statusText=document.getElementById("statusText"),viewerInfo=document.getElementById("viewerInfo"),phaseSelect=document.getElementById("phase"),roundLabel=document.getElementById("roundLabel"),setup=document.getElementById("setup"),teamChecks=document.getElementById("teamChecks"),selectedCount=document.getElementById("selectedCount");
+let phase="r1";
+let states={
+  r1:{pool:[...TEAMS],available:[...TEAMS],matches:[],lastResult:null,currentDrawer:"",configured:true},
+  r2w:{pool:[],available:[],matches:[],lastResult:null,currentDrawer:"",configured:false},
+  r2l:{pool:[],available:[],matches:[],lastResult:null,currentDrawer:"",configured:false}
+};
+let ticketOrder=[],connections=[],peer=null,viewerConn=null,reconnectTimer=null;
+
 if(isHost){
   app.classList.add("hostmode");
-  viewerInfo.innerHTML="<b>主催者モード</b>：ここで行った抽選が、サイトの「対戦抽選」を開いて待機している全員へリアルタイム送信されます。";
-  document.getElementById("note").textContent="HOST MODE：参加者・運営は大会サイトの「対戦抽選」を押すだけでOKです。";
+  viewerInfo.innerHTML="<b>主催者モード</b>：ラウンドを切り替えて抽選できます。操作内容は、サイトの「対戦抽選」を開いている全員へリアルタイム送信されます。";
+  document.getElementById("note").textContent="HOST MODE：予選2は勝者側・敗者側それぞれ6チームを設定してから抽選してください。";
   status.classList.add("host");
 }else{
+  app.classList.add("viewer");
   viewerInfo.innerHTML="<b>閲覧モード</b>：主催者が抽選を開始するまで、このままお待ちください。";
 }
 
+function S(){return states[phase]}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function safeState(){return {type:"state",available:[...available],matches:matches.map(x=>[...x]),lastResult:lastResult?{...lastResult}:null,currentDrawer,currentTicketCount:currentDrawer?available.filter(t=>t!==currentDrawer).length:0,done:matches.length===6}}
-function broadcast(){const state=safeState();connections=connections.filter(c=>c&&c.open);connections.forEach(c=>{try{c.send(state)}catch(e){}})}
-function saveHost(){if(!isHost)return;try{localStorage.setItem("nsccDrawStateV2",JSON.stringify({available,matches,lastResult,currentDrawer}))}catch(e){}}
-function loadHost(){if(!isHost)return;try{const raw=localStorage.getItem("nsccDrawStateV2");if(!raw)return;const s=JSON.parse(raw);if(Array.isArray(s.available)&&Array.isArray(s.matches)){available=s.available;matches=s.matches;lastResult=s.lastResult||null;currentDrawer=s.currentDrawer||""}}catch(e){}}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 function setStatus(text,mode){statusText.textContent=text;status.classList.toggle("online",mode==="online");if(isHost)status.classList.add("host")}
+function targetCount(){return PHASES[phase].target}
+
+function safeState(){
+  const s=S();
+  return {type:"state",phase,phaseLabel:PHASES[phase].label,available:[...s.available],pool:[...s.pool],matches:s.matches.map(x=>[...x]),lastResult:s.lastResult?{...s.lastResult}:null,currentDrawer:s.currentDrawer,configured:s.configured,currentTicketCount:s.currentDrawer?Math.max(s.available.filter(t=>t!==s.currentDrawer).length,1):0,done:s.matches.length===targetCount()};
+}
+function broadcast(){const state=safeState();connections=connections.filter(c=>c&&c.open);connections.forEach(c=>{try{c.send(state)}catch(e){}})}
+function saveHost(){if(!isHost)return;try{localStorage.setItem("nsccDrawStateV3",JSON.stringify({phase,states}))}catch(e){}}
+function loadHost(){
+  if(!isHost)return;
+  try{
+    const raw=localStorage.getItem("nsccDrawStateV3");
+    if(raw){
+      const obj=JSON.parse(raw);
+      if(obj&&PHASES[obj.phase]&&obj.states){phase=obj.phase;states=obj.states;return}
+    }
+    const old=localStorage.getItem("nsccDrawStateV2");
+    if(old){
+      const s=JSON.parse(old);
+      if(Array.isArray(s.available)&&Array.isArray(s.matches)){
+        states.r1={pool:[...TEAMS],available:s.available,matches:s.matches,lastResult:s.lastResult||null,currentDrawer:s.currentDrawer||"",configured:true};
+      }
+    }
+  }catch(e){}
+}
+
+function renderRound(){
+  roundLabel.textContent=PHASES[phase].label;
+  if(isHost)phaseSelect.value=phase;
+  if(phase==="r1"){
+    setup.classList.remove("show");
+  }else if(isHost){
+    setup.classList.add("show");
+    document.getElementById("setupTitle").textContent=phase==="r2w"?"予選2｜勝者側の6チームを選択":"予選2｜敗者側の6チームを選択";
+    renderTeamChecks();
+  }
+}
+function renderTeamChecks(){
+  if(!isHost||phase==="r1")return;
+  const chosen=new Set(S().pool||[]);
+  teamChecks.innerHTML="";
+  TEAMS.forEach(t=>{
+    const lab=document.createElement("label");lab.className="teamcheck";
+    const cb=document.createElement("input");cb.type="checkbox";cb.value=t;cb.checked=chosen.has(t);
+    cb.addEventListener("change",updateSelectedCount);
+    const span=document.createElement("span");span.textContent=t;
+    lab.append(cb,span);teamChecks.appendChild(lab);
+  });
+  updateSelectedCount();
+}
+function getCheckedTeams(){return [...teamChecks.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value)}
+function updateSelectedCount(){if(selectedCount)selectedCount.textContent=getCheckedTeams().length}
+
 function renderMatches(){
- const box=document.getElementById("matchList");
- if(!matches.length){box.className="empty";box.textContent="まだ対戦カードは決まっていません。";return}
- else{box.className="";box.innerHTML=matches.map((m,i)=>'<div class="match"><span>試合 '+(i+1)+'</span><strong>'+escapeHtml(m[0])+'</strong><i>VS</i><strong>'+escapeHtml(m[1])+'</strong></div>').join("")}
- if(matches.length===6){guide.textContent="全6試合の対戦カードが決定しました！";guide.classList.add("done");subguide.textContent="抽選終了です。"}
+  const s=S(),box=document.getElementById("matchList");
+  if(!s.matches.length){box.className="empty";box.textContent=s.configured?"まだ対戦カードは決まっていません。":"対象6チームを設定すると抽選できます。"}
+  else{box.className="";box.innerHTML=s.matches.map((m,i)=>'<div class="match"><span>試合 '+(i+1)+'</span><strong>'+escapeHtml(m[0])+'</strong><i>VS</i><strong>'+escapeHtml(m[1])+'</strong></div>').join("")}
+  guide.classList.toggle("done",s.matches.length===targetCount());
+  if(s.matches.length===targetCount()){guide.textContent="全"+targetCount()+"試合の対戦カードが決定しました！";subguide.textContent="抽選終了です。"}
 }
 function renderResult(){
- const r=document.getElementById("result");
- if(lastResult){document.getElementById("resultNames").innerHTML=escapeHtml(lastResult.a)+' <b>VS</b> '+escapeHtml(lastResult.b);r.classList.add("show")}else r.classList.remove("show");
+  const s=S(),r=document.getElementById("result");
+  if(s.lastResult){document.getElementById("resultNames").innerHTML=escapeHtml(s.lastResult.a)+' <b>VS</b> '+escapeHtml(s.lastResult.b);r.classList.add("show")}else r.classList.remove("show");
 }
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 function refreshDrawer(){
- if(!isHost)return;
- const prev=currentDrawer;drawer.innerHTML='<option value="">-- 抽選するチームを選択 --</option>';
- available.forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;drawer.appendChild(o)});
- if(prev&&available.includes(prev)){drawer.value=prev}else{currentDrawer="";drawer.value=""}
- updateTicketsHost(false);
+  if(!isHost)return;
+  const s=S(),prev=s.currentDrawer;
+  drawer.innerHTML='<option value="">-- 抽選するチームを選択 --</option>';
+  if(s.configured){
+    s.available.forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;drawer.appendChild(o)});
+  }
+  drawer.disabled=!s.configured||s.matches.length===targetCount();
+  if(prev&&s.available.includes(prev)){drawer.value=prev}else{s.currentDrawer="";drawer.value=""}
+  updateTicketsHost(false);
 }
 function updateTicketsHost(doBroadcast=true){
- if(!isHost)return;
- currentDrawer=drawer.value||"";
- const opponents=available.filter(t=>t!==currentDrawer);ticketOrder=shuffle([...opponents]);renderClosedTickets(currentDrawer?opponents.length:Math.max(available.length-1,1),!!currentDrawer);
- if(currentDrawer){guide.textContent=currentDrawer+"：好きなくじを1つ選んでください！";subguide.textContent="代表者が指定した番号を主催者がクリックします。"}else{guide.textContent=matches.length===6?"全6試合の対戦カードが決定しました！":"チームを選んで、好きなくじをクリック！";subguide.textContent="抽選するチーム自身は候補に入りません。"}
- saveHost();if(doBroadcast)broadcast();
+  if(!isHost)return;
+  const s=S();
+  s.currentDrawer=drawer.value||"";
+  const opponents=s.available.filter(t=>t!==s.currentDrawer);
+  ticketOrder=shuffle([...opponents]);
+  renderClosedTickets(s.currentDrawer?Math.max(opponents.length,1):Math.max(s.available.length-1,1),!!s.currentDrawer&&s.configured);
+  if(!s.configured){
+    guide.textContent="対象6チームを設定してください";
+    subguide.textContent="予選1終了後、該当する6チームを上から選択します。";
+  }else if(s.currentDrawer){
+    guide.textContent=s.currentDrawer+"：好きなくじを1つ選んでください！";
+    subguide.textContent="代表者が指定した番号を主催者がクリックします。";
+  }else if(s.matches.length===targetCount()){
+    guide.textContent="全"+targetCount()+"試合の対戦カードが決定しました！";
+    subguide.textContent="抽選終了です。";
+  }else{
+    guide.textContent=phase==="r1"?"チームを選んで、好きなくじをクリック！":"対象6チームから、抽選するチームを選択！";
+    subguide.textContent=phase==="r1"?"抽選するチーム自身は候補に入りません。":"決まった2チームは候補から外れ、残りチームで続けます。";
+  }
+  saveHost();if(doBroadcast)broadcast();
 }
 function renderClosedTickets(count,active){
- tickets.innerHTML="";
- if(count<1)count=1;
- for(let i=0;i<count;i++){const el=document.createElement("div");el.className="ticket"+(active?"":" used");el.innerHTML='<div class="num">くじ '+(i+1)+'</div><div class="q">?</div>';if(isHost&&active)el.addEventListener("click",()=>draw(i,el));tickets.appendChild(el)}
+  tickets.innerHTML="";
+  if(count<1)count=1;
+  for(let i=0;i<count;i++){
+    const el=document.createElement("div");el.className="ticket"+(active?"":" used");
+    el.innerHTML='<div class="num">くじ '+(i+1)+'</div><div class="q">?</div>';
+    if(isHost&&active)el.addEventListener("click",()=>draw(i,el));
+    tickets.appendChild(el);
+  }
 }
 function draw(i,el){
- if(!isHost||!currentDrawer||!available.includes(currentDrawer))return;
- const opponent=ticketOrder[i];if(!opponent)return;
- [...tickets.children].forEach(x=>x.classList.add("used"));el.classList.remove("used");el.classList.add("revealed");el.innerHTML='<div class="num">対戦相手</div><strong>'+escapeHtml(opponent)+'</strong>';
- const d=currentDrawer;matches.push([d,opponent]);available=available.filter(t=>t!==d&&t!==opponent);lastResult={a:d,b:opponent};currentDrawer="";
- renderResult();renderMatches();saveHost();broadcast();
- setTimeout(()=>{refreshDrawer();broadcast()},900);
+  if(!isHost)return;
+  const s=S();
+  if(!s.configured||!s.currentDrawer||!s.available.includes(s.currentDrawer)||s.matches.length>=targetCount())return;
+  const opponent=ticketOrder[i];if(!opponent)return;
+  [...tickets.children].forEach(x=>x.classList.add("used"));el.classList.remove("used");el.classList.add("revealed");el.innerHTML='<div class="num">対戦相手</div><strong>'+escapeHtml(opponent)+'</strong>';
+  const d=s.currentDrawer;s.matches.push([d,opponent]);s.available=s.available.filter(t=>t!==d&&t!==opponent);s.lastResult={a:d,b:opponent};s.currentDrawer="";
+  renderResult();renderMatches();saveHost();broadcast();
+  setTimeout(()=>{refreshDrawer();broadcast()},900);
 }
-function applyRemote(s){
- if(!s||s.type!=="state")return;
- available=Array.isArray(s.available)?s.available:[...TEAMS];matches=Array.isArray(s.matches)?s.matches:[];lastResult=s.lastResult||null;currentDrawer=s.currentDrawer||"";
- renderMatches();renderResult();
- if(s.done){renderClosedTickets(1,false);guide.textContent="全6試合の対戦カードが決定しました！";subguide.textContent="抽選終了です。";return}
- const count=Number(s.currentTicketCount)||Math.max(available.length-1,1);renderClosedTickets(count,!!currentDrawer);
- if(currentDrawer){guide.textContent=currentDrawer+" が対戦相手を抽選中です";subguide.textContent="代表者が選んだくじの結果を待っています。"}else{guide.textContent=matches.length?"次の抽選を待っています":"主催者の抽選開始を待っています";subguide.textContent="結果はこの画面に自動反映されます。"}
+function renderAll(){
+  renderRound();renderMatches();renderResult();
+  if(isHost){refreshDrawer()}
+  else{
+    const s=S();
+    const active=!!s.currentDrawer&&s.configured;
+    renderClosedTickets(s.currentDrawer?Math.max(s.available.filter(t=>t!==s.currentDrawer).length,1):Math.max(s.available.length-1,1),active);
+    if(!s.configured){guide.textContent="対象チームの設定を待っています";subguide.textContent="主催者の操作が自動で反映されます。"}
+    else if(s.matches.length===targetCount()){guide.textContent="全"+targetCount()+"試合の対戦カードが決定しました！";subguide.textContent="抽選終了です。"}
+    else if(s.currentDrawer){guide.textContent=s.currentDrawer+" が対戦相手を抽選中です";subguide.textContent="代表者が選んだくじの結果を待っています。"}
+    else{guide.textContent=s.matches.length?"次の抽選を待っています":"主催者の抽選開始を待っています";subguide.textContent="結果はこの画面に自動反映されます。"}
+  }
+}
+function applyRemote(data){
+  if(!data||data.type!=="state"||!PHASES[data.phase])return;
+  phase=data.phase;
+  states[phase]={
+    pool:Array.isArray(data.pool)?data.pool:[],
+    available:Array.isArray(data.available)?data.available:[],
+    matches:Array.isArray(data.matches)?data.matches:[],
+    lastResult:data.lastResult||null,
+    currentDrawer:data.currentDrawer||"",
+    configured:data.configured!==false
+  };
+  renderAll();
+}
+function resetCurrent(){
+  const s=S();
+  if(phase==="r1"){
+    states.r1={pool:[...TEAMS],available:[...TEAMS],matches:[],lastResult:null,currentDrawer:"",configured:true};
+  }else{
+    const pool=[...(s.pool||[])];
+    states[phase]={pool,available:[...pool],matches:[],lastResult:null,currentDrawer:"",configured:pool.length===6};
+  }
+  guide.classList.remove("done");saveHost();renderAll();broadcast();
 }
 function initHostPeer(){
- if(typeof Peer==="undefined"){setStatus("LIVE機能の読込失敗","off");return}
- setStatus("配信接続中","off");
- peer=new Peer(HOST_ID);
- peer.on("open",()=>{setStatus("LIVE配信中","online");broadcast()});
- peer.on("connection",conn=>{connections.push(conn);conn.on("open",()=>{try{conn.send(safeState())}catch(e){};setStatus("LIVE配信中 / 閲覧 "+connections.filter(c=>c.open).length+"人","online")});conn.on("close",()=>setStatus("LIVE配信中 / 閲覧 "+connections.filter(c=>c.open).length+"人","online"))});
- peer.on("error",err=>{
-  if(err&&err.type==="unavailable-id"){
-    setStatus("主催者接続を再試行中","off");
-    try{peer.destroy()}catch(e){}
-    clearTimeout(reconnectTimer);
-    reconnectTimer=setTimeout(initHostPeer,3000);
-  }else{
-    setStatus("LIVE接続エラー","off");
-  }
-});
+  if(typeof Peer==="undefined"){setStatus("LIVE機能の読込失敗","off");return}
+  setStatus("配信接続中","off");peer=new Peer(HOST_ID);
+  peer.on("open",()=>{setStatus("LIVE配信中","online");broadcast()});
+  peer.on("connection",conn=>{
+    connections.push(conn);
+    conn.on("open",()=>{try{conn.send(safeState())}catch(e){};setStatus("LIVE配信中 / 閲覧 "+connections.filter(c=>c.open).length+"人","online")});
+    conn.on("close",()=>setStatus("LIVE配信中 / 閲覧 "+connections.filter(c=>c.open).length+"人","online"));
+  });
+  peer.on("error",err=>{
+    if(err&&err.type==="unavailable-id"){
+      setStatus("主催者接続を再試行中","off");try{peer.destroy()}catch(e){};clearTimeout(reconnectTimer);reconnectTimer=setTimeout(initHostPeer,3000);
+    }else setStatus("LIVE接続エラー","off");
+  });
 }
 function connectViewer(){
- if(typeof Peer==="undefined"){setStatus("LIVE機能の読込失敗","off");return}
- if(peer){try{peer.destroy()}catch(e){}}
- setStatus("主催者の接続待ち","off");peer=new Peer();
- peer.on("open",()=>{viewerConn=peer.connect(HOST_ID,{reliable:true});viewerConn.on("open",()=>setStatus("LIVE接続中","online"));viewerConn.on("data",applyRemote);viewerConn.on("close",()=>{setStatus("再接続中","off");scheduleReconnect()});viewerConn.on("error",()=>{setStatus("再接続中","off");scheduleReconnect()})});
- peer.on("error",()=>{setStatus("主催者の接続待ち","off");scheduleReconnect()});
+  if(typeof Peer==="undefined"){setStatus("LIVE機能の読込失敗","off");return}
+  if(peer){try{peer.destroy()}catch(e){}}
+  setStatus("主催者の接続待ち","off");peer=new Peer();
+  peer.on("open",()=>{
+    viewerConn=peer.connect(HOST_ID,{reliable:true});
+    viewerConn.on("open",()=>setStatus("LIVE接続中","online"));
+    viewerConn.on("data",applyRemote);
+    viewerConn.on("close",()=>{setStatus("再接続中","off");scheduleReconnect()});
+    viewerConn.on("error",()=>{setStatus("再接続中","off");scheduleReconnect()});
+  });
+  peer.on("error",()=>{setStatus("主催者の接続待ち","off");scheduleReconnect()});
 }
 function scheduleReconnect(){clearTimeout(reconnectTimer);reconnectTimer=setTimeout(connectViewer,2500)}
 
-loadHost();renderMatches();renderResult();
+loadHost();renderAll();
 if(isHost){
- refreshDrawer();
- drawer.addEventListener("change",()=>updateTicketsHost(true));
- document.getElementById("shuffle").addEventListener("click",()=>updateTicketsHost(true));
- document.getElementById("reset").addEventListener("click",()=>{if(confirm("抽選結果をすべてリセットしますか？")){available=[...TEAMS];matches=[];lastResult=null;currentDrawer="";guide.classList.remove("done");saveHost();renderMatches();renderResult();refreshDrawer();broadcast()}});
- initHostPeer();
-}else{app.classList.add("viewer");renderClosedTickets(Math.max(TEAMS.length-1,1),false);connectViewer()}
-</script></body></html>
+  phaseSelect.addEventListener("change",()=>{phase=phaseSelect.value;saveHost();renderAll();broadcast()});
+  drawer.addEventListener("change",()=>updateTicketsHost(true));
+  document.getElementById("shuffle").addEventListener("click",()=>updateTicketsHost(true));
+  document.getElementById("reset").addEventListener("click",()=>{if(confirm(PHASES[phase].label+"の抽選結果をリセットしますか？"))resetCurrent()});
+  document.getElementById("setPool").addEventListener("click",()=>{
+    const picked=getCheckedTeams();
+    if(picked.length!==6){alert("6チームちょうど選択してください。");return}
+    if(S().matches.length&& !confirm("現在の"+PHASES[phase].label+"の抽選結果を消して、この6チームでやり直しますか？"))return;
+    states[phase]={pool:[...picked],available:[...picked],matches:[],lastResult:null,currentDrawer:"",configured:true};
+    saveHost();renderAll();broadcast();
+  });
+  initHostPeer();
+}else connectViewer();
+</script></script></body></html>
