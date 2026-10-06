@@ -45,23 +45,17 @@ button{border:1px solid var(--red);background:var(--red);color:#fff;padding:13px
 const TEAMS=["どっとこ走るよもす太郎","load-of-time","クラッちゃんポン","chiぬーず","ドンパガキjack","ペンタgon","オーディン胴打ち界隈","中山げんきくん","ふぁいぶでゅえりすと","サビ残轟美する産業","佐藤9","ネオン・ダメ・ゼッタイ"];
 const params=new URLSearchParams(location.search);
 const isHost=params.get("host")==="1";
-let room=params.get("room")||"";
-if(isHost && !room){
-  room=Math.random().toString(36).slice(2,8).toUpperCase();
-  params.set("room",room);
-  history.replaceState(null,"",location.pathname+"?"+params.toString());
-}
-const HOST_ID="nscc-2026-"+(room||"MAIN");
+let room=params.get("room")||"MAIN";
+const HOST_ID="nscc-2026-"+room;
 const app=document.getElementById("app"),drawer=document.getElementById("drawer"),tickets=document.getElementById("tickets"),guide=document.getElementById("guide"),subguide=document.getElementById("subguide"),status=document.getElementById("status"),statusText=document.getElementById("statusText"),viewerInfo=document.getElementById("viewerInfo");
 let available=[...TEAMS],matches=[],ticketOrder=[],lastResult=null,currentDrawer="",connections=[],peer=null,viewerConn=null,reconnectTimer=null;
 if(isHost){
   app.classList.add("hostmode");
-  const viewerUrl=location.origin+location.pathname+"?room="+encodeURIComponent(room);
-  viewerInfo.innerHTML="<b>主催者モード</b>：ここで行った抽選が閲覧者の画面へリアルタイム送信されます。<br><b>部屋コード：</b>"+room+"<br><b>共有URL：</b> <a href=\""+viewerUrl+"\" target=\"_blank\" style=\"color:#fff\">"+viewerUrl+"</a>";
-  document.getElementById("note").textContent="HOST MODE：上の共有URLを参加者に送ってください。";
+  viewerInfo.innerHTML="<b>主催者モード</b>：ここで行った抽選が、サイトの「対戦抽選」を開いて待機している全員へリアルタイム送信されます。";
+  document.getElementById("note").textContent="HOST MODE：参加者・運営は大会サイトの「対戦抽選」を押すだけでOKです。";
   status.classList.add("host");
-}else if(room){
-  viewerInfo.innerHTML="<b>閲覧モード</b>：部屋コード <b>"+room+"</b> に接続します。";
+}else{
+  viewerInfo.innerHTML="<b>閲覧モード</b>：主催者が抽選を開始するまで、このままお待ちください。";
 }
 
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
@@ -122,14 +116,23 @@ function initHostPeer(){
  peer=new Peer(HOST_ID);
  peer.on("open",()=>{setStatus("LIVE配信中","online");broadcast()});
  peer.on("connection",conn=>{connections.push(conn);conn.on("open",()=>{try{conn.send(safeState())}catch(e){};setStatus("LIVE配信中 / 閲覧 "+connections.filter(c=>c.open).length+"人","online")});conn.on("close",()=>setStatus("LIVE配信中 / 閲覧 "+connections.filter(c=>c.open).length+"人","online"))});
- peer.on("error",err=>{if(err&&err.type==="unavailable-id")setStatus("この部屋は別の主催者タブで使用中","off");else setStatus("LIVE接続エラー","off")});
+ peer.on("error",err=>{
+  if(err&&err.type==="unavailable-id"){
+    setStatus("主催者接続を再試行中","off");
+    try{peer.destroy()}catch(e){}
+    clearTimeout(reconnectTimer);
+    reconnectTimer=setTimeout(initHostPeer,3000);
+  }else{
+    setStatus("LIVE接続エラー","off");
+  }
+});
 }
 function connectViewer(){
  if(typeof Peer==="undefined"){setStatus("LIVE機能の読込失敗","off");return}
  if(peer){try{peer.destroy()}catch(e){}}
- setStatus("主催者へ接続中","off");peer=new Peer();
+ setStatus("主催者の接続待ち","off");peer=new Peer();
  peer.on("open",()=>{viewerConn=peer.connect(HOST_ID,{reliable:true});viewerConn.on("open",()=>setStatus("LIVE接続中","online"));viewerConn.on("data",applyRemote);viewerConn.on("close",()=>{setStatus("再接続中","off");scheduleReconnect()});viewerConn.on("error",()=>{setStatus("再接続中","off");scheduleReconnect()})});
- peer.on("error",()=>{setStatus("主催者を待っています","off");scheduleReconnect()});
+ peer.on("error",()=>{setStatus("主催者の接続待ち","off");scheduleReconnect()});
 }
 function scheduleReconnect(){clearTimeout(reconnectTimer);reconnectTimer=setTimeout(connectViewer,2500)}
 
