@@ -149,7 +149,7 @@ function updateSelectedCount(){if(selectedCount)selectedCount.textContent=getChe
 function renderMatches(){
   const s=S(),box=document.getElementById("matchList");
   if(!s.matches.length){box.className="empty";box.textContent=s.configured?"まだ対戦カードは決まっていません。":"対象6チームを設定すると抽選できます。"}
-  else{box.className="";box.innerHTML=s.matches.map((m,i)=>'<div class="match"><span>試合 '+(i+1)+'</span><strong>'+escapeHtml(m[0])+'</strong><i>VS</i><strong>'+escapeHtml(m[1])+'</strong></div>').join("")}
+  else{box.className="";box.innerHTML=s.matches.map((m,i)=>'<div class="match"><span>対戦相手</span><strong>'+escapeHtml(m[0])+'</strong><i>VS</i><strong>'+escapeHtml(m[1])+'</strong></div>').join("")}
   guide.classList.toggle("done",s.matches.length===targetCount());
   if(s.matches.length===targetCount()){guide.textContent="全"+targetCount()+"試合の対戦カードが決定しました！";subguide.textContent="抽選終了です。"}
 }
