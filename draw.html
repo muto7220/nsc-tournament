@@ -60,7 +60,7 @@ button{border:1px solid var(--red);background:var(--red);color:#fff;padding:13px
 <div class="note" id="note">LIVE VIEW：ページを開いたままでOKです。主催者の操作が自動で反映されます。</div>
 </section></div>
 <script>
-const TEAMS=["どっとこ走るよもす太郎","load-of-time","クラッちゃんポン","chiぬーず","ドンパガキjack","ペンタgon","オーディン胴打ち界隈","中山げんきくん","ふぁいぶでゅえりすと","サビ残轟美する産業","佐藤9","ネオン・ダメ・ゼッタイ"];
+const TEAMS=["とっとこ走るよもす太郎","load-of-time","クラッちゃんポン","chiぬーず","ドパガキjack","ペンタgon","オーディン胴打ち界隈","中山げんきくん","ふぁいぶでゅえりすと","サビ残賛美する産業","佐藤9","ネオン・ダメ・ゼッタイ"];
 const PHASES={
   r1:{label:"予選1",target:6},
   r2w:{label:"予選2｜勝者側",target:3},
@@ -89,6 +89,24 @@ if(isHost){
   viewerInfo.innerHTML="<b>閲覧モード</b>：主催者が抽選を開始するまで、このままお待ちください。";
 }
 
+function canonicalTeamName(name){
+  const fixes={
+    "どっとこ走るよもす太郎":"とっとこ走るよもす太郎",
+    "ドンパガキjack":"ドパガキjack",
+    "サビ残轟美する産業":"サビ残賛美する産業"
+  };
+  return fixes[name]||name;
+}
+function migrateStateNames(){
+  Object.keys(states).forEach(k=>{
+    const s=states[k]; if(!s)return;
+    s.pool=(s.pool||[]).map(canonicalTeamName);
+    s.available=(s.available||[]).map(canonicalTeamName);
+    s.matches=(s.matches||[]).map(m=>m.map(canonicalTeamName));
+    if(s.lastResult){s.lastResult={a:canonicalTeamName(s.lastResult.a),b:canonicalTeamName(s.lastResult.b)}}
+    s.currentDrawer=canonicalTeamName(s.currentDrawer||"");
+  });
+}
 function S(){return states[phase]}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
@@ -276,7 +294,7 @@ function connectViewer(){
 }
 function scheduleReconnect(){clearTimeout(reconnectTimer);reconnectTimer=setTimeout(connectViewer,2500)}
 
-loadHost();renderAll();
+loadHost();migrateStateNames();saveHost();renderAll();
 if(isHost){
   phaseSelect.addEventListener("change",()=>{phase=phaseSelect.value;saveHost();renderAll();broadcast()});
   drawer.addEventListener("change",()=>updateTicketsHost(true));
