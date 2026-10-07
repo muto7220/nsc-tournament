@@ -2689,3 +2689,43 @@ main{
   }
 }
 
+
+
+/* ===== TRANSPARENT CHARACTER HERO / 2026-10-08 ===== */
+.hero-official .hero-feature-image{
+  display:block!important;
+  position:absolute!important;
+  right:6vw!important;
+  bottom:0!important;
+  top:auto!important;
+  width:auto!important;
+  height:78%!important;
+  max-width:42vw!important;
+  object-fit:contain!important;
+  object-position:right bottom!important;
+  z-index:5!important;
+  opacity:1!important;
+  pointer-events:none!important;
+  filter:drop-shadow(0 0 28px rgba(139,92,246,.38)) saturate(1.08)!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
+.hero-official .hero-official-inner{z-index:10!important}
+@media(max-width:980px){
+  .hero-official .hero-feature-image{
+    right:1vw!important;
+    height:72%!important;
+    max-width:46vw!important;
+    opacity:.95!important;
+  }
+}
+@media(max-width:700px){
+  .hero-official .hero-feature-image{
+    right:-6vw!important;
+    bottom:360px!important;
+    height:45%!important;
+    max-width:62vw!important;
+    opacity:.82!important;
+  }
+}
+
