@@ -2176,3 +2176,14 @@ main{
     margin-top:18px!important;
   }
 }
+
+
+/* ===== HERO BUTTON BOTTOM SPACE / 2026-10-07 ===== */
+.hero-official-actions{
+  margin-bottom:72px!important;
+}
+@media(max-width:700px){
+  .hero-official-actions{
+    margin-bottom:54px!important;
+  }
+}
