@@ -816,14 +816,12 @@ footer{
   width:62px;height:62px;
   margin:auto;
   color:#fff!important;
-  font:900 italic 24px Rajdhani,sans-serif!important;
+  font:900 italic 24px/1 Rajdhani,sans-serif!important;
   background:linear-gradient(145deg,#171d27,#0b0f16);
   border:1px solid rgba(255,49,95,.5);
-  transform:rotate(45deg);
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
   box-shadow:0 0 0 5px rgba(255,49,95,.025),0 0 24px rgba(255,49,95,.08);
 }
-.official-match>b::first-line{transform:rotate(-45deg)}
-.official-match>b{line-height:62px;text-align:center}
 .official-match:nth-child(even)>b{border-color:rgba(139,92,246,.55);box-shadow:0 0 0 5px rgba(139,92,246,.025),0 0 24px rgba(139,92,246,.08)}
 .matchup-foot{
   margin-top:18px!important;
@@ -1025,7 +1023,7 @@ footer{
   margin:auto;
   border:1px solid rgba(255,49,95,.35);
   background:rgba(255,49,95,.035);
-  transform:rotate(45deg);
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
 }
 
 /* Mobile tournament UI */
@@ -1049,7 +1047,7 @@ footer{
     min-height:132px!important;
   }
   .official-match .team-name{font-size:13px!important;line-height:1.25!important}
-  .official-match>b{width:40px;height:40px;font-size:16px!important;line-height:40px}
+  .official-match>b{width:40px;height:40px;font-size:16px!important;line-height:1}
   .roster-section:after,.matchup-section:before{display:none}
   .roster-head>div strong{font-size:18px!important}
   .finalists-grid{padding:8px}
