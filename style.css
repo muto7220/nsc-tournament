@@ -1540,3 +1540,84 @@ footer{
   .header{height:66px!important}
   .hero{padding-top:145px!important}
 }
+
+
+/* ===== HEADER BUTTON VISIBILITY HOTFIX / 2026-10-07 ===== */
+/* Keep every desktop/tablet navigation item visible. Only collapse on true mobile. */
+@media (min-width:701px){
+  .header{
+    height:96px!important;
+    display:grid!important;
+    grid-template-columns:auto 1fr auto!important;
+    grid-template-rows:58px 38px!important;
+    overflow:visible!important;
+  }
+  .brand{
+    display:flex!important;
+    grid-column:1!important;
+    grid-row:1!important;
+  }
+  .head-actions{
+    display:flex!important;
+    grid-column:3!important;
+    grid-row:1!important;
+    margin-left:18px!important;
+    gap:8px!important;
+  }
+  .header nav{
+    display:flex!important;
+    grid-column:1 / -1!important;
+    grid-row:2!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0 2px!important;
+    justify-content:center!important;
+    align-items:center!important;
+    gap:clamp(5px,.75vw,13px)!important;
+    white-space:nowrap!important;
+    overflow:visible!important;
+  }
+  .header nav a{
+    display:block!important;
+    opacity:.86!important;
+    visibility:visible!important;
+    font-size:clamp(7px,.58vw,9.5px)!important;
+    letter-spacing:.25px!important;
+    padding:11px 0 10px!important;
+  }
+  .discord,.entry{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+  .menu{display:none!important}
+  .hero{padding-top:220px!important}
+}
+
+/* On small phones use menu, but keep action buttons available in the header instead of deleting everything. */
+@media (max-width:700px){
+  .header{
+    height:70px!important;
+    display:flex!important;
+    padding:0 4vw!important;
+  }
+  .header nav{display:none!important}
+  .head-actions{
+    display:flex!important;
+    margin-left:auto!important;
+    gap:6px!important;
+  }
+  .head-actions .discord{display:none!important}
+  .head-actions .entry{
+    display:inline-flex!important;
+    padding:8px 10px!important;
+    font-size:9px!important;
+  }
+  .menu{
+    display:block!important;
+    margin-left:8px!important;
+  }
+  .hero{padding-top:150px!important}
+}
