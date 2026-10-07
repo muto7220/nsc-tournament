@@ -13,7 +13,7 @@
     <a class="brand" href="#top"><span>NSCC</span><small>NARIAGARI SERVER CHALLENGE CUP</small></a>
     <nav>
       <a href="#requirements">参加条件</a><a href="#about">大会概要</a><a href="#rules">大会ルール</a><a href="#bracket">トーナメント</a>
-      <a href="#maps">試合マップ</a><a href="#matchups">対戦カード</a><a href="#teams">チーム編成</a><a href="draw.html">対戦抽選</a><a href="side.html">先攻・後攻</a><a href="#dayflow">当日の進行</a><a href="#news">NEWS</a><a href="#live">配信</a><a href="#notes">備考</a>
+      <a href="#maps">試合マップ</a><a href="#liveboard">LIVE</a><a href="#matchups">対戦カード</a><a href="#results">結果速報</a><a href="#teams">チーム編成</a><a href="draw.html">対戦抽選</a><a href="side.html">先攻・後攻</a><a href="#dayflow">当日の進行</a><a href="#news">NEWS</a><a href="#live">配信</a><a href="#notes">備考</a>
     </nav>
     <div class="head-actions">
       <a class="discord" href="https://discord.gg/B6Ruuv8vS" target="_blank" rel="noopener">◉ Discord参加</a>
@@ -37,6 +37,49 @@
       <div class="hero-logo">NSCC<small>NARIAGARI SERVER<br>CHALLENGE CUP</small></div>
       <div class="scroll">SCROLL <span></span></div>
     </section>
+
+    <section id="liveboard" class="section event-command-section">
+      <div class="event-command-top">
+        <div>
+          <p class="eyebrow">NSCC MATCH CENTER</p>
+          <h2>大会まで、<span>あと少し。</span></h2>
+          <p>大会当日はここを見れば、現在の進行・次の試合・結果をすぐ確認できます。</p>
+        </div>
+        <div class="live-status-badge" id="liveStatusBadge"><i></i><span>PRE EVENT</span></div>
+      </div>
+
+      <div class="countdown-panel" id="countdownPanel" data-target="2026-10-10T20:30:00+09:00">
+        <div class="countdown-copy">
+          <small>OPENING CEREMONY</small>
+          <strong>NSCC 開会式まで</strong>
+          <span>2026.10.10 SAT / 20:30</span>
+        </div>
+        <div class="countdown-clock" aria-label="大会開始までのカウントダウン">
+          <div><b id="cdDays">--</b><small>DAYS</small></div>
+          <i>:</i>
+          <div><b id="cdHours">--</b><small>HOURS</small></div>
+          <i>:</i>
+          <div><b id="cdMinutes">--</b><small>MIN</small></div>
+          <i>:</i>
+          <div><b id="cdSeconds">--</b><small>SEC</small></div>
+        </div>
+      </div>
+
+      <div class="live-progress" id="liveProgress">
+        <article class="active" data-stage="pre"><small>NOW</small><b>大会準備期間</b><span>チーム練習・ルール確認</span></article>
+        <article data-stage="opening"><small>10.10 / 20:30</small><b>開会式</b><span>全員集合・最終説明</span></article>
+        <article data-stage="day1"><small>10.10 / 21:00</small><b>予選 DAY 1</b><span>予選1 → 予選2 → 敗者復活</span></article>
+        <article data-stage="final"><small>10.11 / 21:00</small><b>FINAL</b><span>4チーム総当たり</span></article>
+      </div>
+
+      <div class="command-links">
+        <a href="#rules"><span>RULES</span><b>大会ルールを確認</b><em>›</em></a>
+        <a href="#matchups"><span>MATCHUP</span><b>対戦カードを見る</b><em>›</em></a>
+        <a href="#results"><span>RESULT</span><b>結果速報を見る</b><em>›</em></a>
+        <a href="#teams"><span>ROSTER</span><b>自分のチームを探す</b><em>›</em></a>
+      </div>
+    </section>
+
     <section id="requirements" class="section">
       <div class="section-title"><span>01</span><h2>参加条件</h2><small>REQUIREMENTS</small></div>
       <div class="overview-grid">
@@ -130,6 +173,16 @@
         </details>
       </div>
     </section>
+    <section class="section quick-guide-section" id="quickguide">
+      <div class="section-title"><span>!</span><h2>困ったときはここ</h2><small>QUICK GUIDE</small></div>
+      <div class="quick-guide-grid">
+        <article><span>01</span><small>DISCONNECT</small><h3>回線落ち</h3><p>発生中のラウンド終了後に一時停止。代表者が「結果報告」で <b>@大会運営</b> を付けて報告。</p><strong>復帰待機：最大10分</strong></article>
+        <article><span>02</span><small>REPORT</small><h3>試合結果</h3><p>試合終了後は、指定された結果報告チャンネルへ速やかに結果を共有してください。</p><strong>運営の案内を確認</strong></article>
+        <article><span>03</span><small>NOTICE</small><h3>進行確認</h3><p>対戦カード・担当チーム・進行変更はDiscordの「大会お知らせ」で案内します。</p><strong>大会中は通知を確認</strong></article>
+        <article><span>04</span><small>DECISION</small><h3>判断に迷ったら</h3><p>参加者同士で再試合や不戦勝を決めず、必ず運営へ確認してください。</p><strong>最終判断：大会運営</strong></article>
+      </div>
+    </section>
+
     <section id="bracket" class="section">
       <div class="section-title"><span>04</span><h2>大会形式</h2><small>TOURNAMENT FORMAT</small></div>
       <div class="tournament-flow">
@@ -209,8 +262,50 @@
       </div>
       <div class="matchup-foot"><span>6 MATCHUPS / 12 TEAMS</span><p>予選1終了後、勝者6チーム・敗者6チームに分かれて予選2の対戦抽選を行います。</p></div>
     </section>
+    <section id="results" class="section results-section">
+      <div class="section-title"><span>LIVE</span><h2>試合結果速報</h2><small>LIVE RESULTS</small></div>
+      <div class="results-head">
+        <div><p>ROUND 1 / LOTUS</p><h3>6 MATCHES</h3><span>試合終了後、順次更新</span></div>
+        <div class="results-status"><i></i><b>WAITING FOR MATCH DAY</b></div>
+      </div>
+
+      <div class="result-grid">
+        <article><small>MATCH 01</small><div><b>オーディン胴打ち界隈</b><strong>—</strong><b>とっとこ走るよもす太郎</b></div><span>PENDING</span></article>
+        <article><small>MATCH 02</small><div><b>ドパガキjack</b><strong>—</strong><b>サビ残賛美する産業</b></div><span>PENDING</span></article>
+        <article><small>MATCH 03</small><div><b>chiぬーず</b><strong>—</strong><b>佐藤9</b></div><span>PENDING</span></article>
+        <article><small>MATCH 04</small><div><b>中山げんきくん</b><strong>—</strong><b>ネオン・ダメ・ゼッタイ</b></div><span>PENDING</span></article>
+        <article><small>MATCH 05</small><div><b>ふぁいぶでゅえりすと</b><strong>—</strong><b>load-of-time</b></div><span>PENDING</span></article>
+        <article><small>MATCH 06</small><div><b>クラッちゃんポン</b><strong>—</strong><b>ペンタgon</b></div><span>PENDING</span></article>
+      </div>
+
+      <div class="finalists-wrap">
+        <div class="finalists-title"><div><small>ROAD TO FINAL</small><h3>決勝進出チーム</h3></div><span>4 / 4 SLOTS</span></div>
+        <div class="finalists-grid">
+          <article><small>QUALIFIED 01</small><b>???</b><span>LOCKED</span></article>
+          <article><small>QUALIFIED 02</small><b>???</b><span>LOCKED</span></article>
+          <article><small>QUALIFIED 03</small><b>???</b><span>LOCKED</span></article>
+          <article><small>LAST CHANCE</small><b>???</b><span>LOCKED</span></article>
+        </div>
+      </div>
+
+      <div class="champion-reveal" id="championReveal" data-revealed="false">
+        <div class="champion-glow"></div>
+        <small>NSCC 2026 / FIRST CHAMPION</small>
+        <h3>CHAMPION</h3>
+        <strong id="championName">???</strong>
+        <p>大会終了後、初代王者がここに刻まれます。</p>
+      </div>
+    </section>
+
     <section id="teams" class="section roster-section">
       <div class="section-title"><span>06</span><h2>チーム編成</h2><small>TOURNAMENT ROSTER</small></div>
+      <div class="team-finder">
+        <div><small>FIND YOUR TEAM</small><strong>自分のチームへ一発ジャンプ</strong></div>
+        <div class="team-finder-controls">
+          <select id="teamSelect" aria-label="チームを選択"><option value="">チームを選択してください</option></select>
+          <button type="button" id="teamJumpButton">チームを見る <span>›</span></button>
+        </div>
+      </div>
       <div class="roster-hero"><div><p>NSCC / OFFICIAL ROSTER</p><h3>60 PLAYERS.<br><b>12 TEAMS.</b></h3></div><span>12 OFFICIAL TEAMS</span></div>
       <p class="roster-note official">OFFICIAL TEAM NAMES / NSCC 2026</p>
       <div class="roster-grid"><article class="roster-card"><div class="roster-head"><span>A</span><div><small>NARIAGARI SQUAD</small><strong>とっとこ走るよもす太郎</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>ydaf8512</strong><small>yuda#TUYOI</small></div><div class="roster-row"><span>02</span><strong>harupiggy</strong><small>harupiggy#RISE</small></div><div class="roster-row"><span>03</span><strong>お餅（もすもす）</strong><small>もすもす#twith</small></div><div class="roster-row"><span>04</span><strong>a1230xxy</strong><small>a1230xxy#1230</small></div><div class="roster-row"><span>05</span><strong>みゅーず</strong><small>miyuzu#0419</small></div></article><article class="roster-card"><div class="roster-head"><span>B</span><div><small>NARIAGARI SQUAD</small><strong>load-of-time</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>tako_beru</strong><small>Pale4f#1588</small></div><div class="roster-row"><span>02</span><strong>odaisandayokousiki</strong><small>Xx damn boy xX#岩本だ</small></div><div class="roster-row"><span>03</span><strong>33no8</strong><small>RAIZIN#7273</small></div><div class="roster-row"><span>04</span><strong>machi05808</strong><small>ハヘットスンスン#machi</small></div><div class="roster-row"><span>05</span><strong>macchaoore</strong><small>macchaoore#ocha</small></div></article><article class="roster-card"><div class="roster-head"><span>C</span><div><small>NARIAGARI SQUAD</small><strong>クラッちゃんポン</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>よーちゃん</strong><small>よーちゃん#2862</small></div><div class="roster-row"><span>02</span><strong>tomoharo</strong><small>逃げるし恥だし役立たず#猗窩座</small></div><div class="roster-row"><span>03</span><strong>みやむ</strong><small>Feel like me#みやむ</small></div><div class="roster-row"><span>04</span><strong>エゴイストぽん</strong><small>デュエリスト使わない#7319</small></div><div class="roster-row"><span>05</span><strong>R1CE</strong><small>S1lica#2312</small></div></article><article class="roster-card"><div class="roster-head"><span>D</span><div><small>NARIAGARI SQUAD</small><strong>chiぬーず</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>sironeko5067</strong><small>リリアみたいな性格の人きついっす#人間さん</small></div><div class="roster-row"><span>02</span><strong>ロミ</strong><small>スニーキー路美#2481</small></div><div class="roster-row"><span>03</span><strong>Chiぬ</strong><small>Chiぬ#0408</small></div><div class="roster-row"><span>04</span><strong>mozuku</strong><small>mozukuchan#もずもず</small></div><div class="roster-row"><span>05</span><strong>hinata_e_h</strong><small>ファイナルチャンス小橋#よわい</small></div></article><article class="roster-card"><div class="roster-head"><span>E</span><div><small>NARIAGARI SQUAD</small><strong>ドパガキjack</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>ahogekurukuru</strong><small>ムネアリムネナシトゲトゲ#チクチク</small></div><div class="roster-row"><span>02</span><strong>れん</strong><small>Fukase Ren#かまちょ</small></div><div class="roster-row"><span>03</span><strong>yuta(vanetti)</strong><small>60FPSぷれいやー#PCほしい</small></div><div class="roster-row"><span>04</span><strong>dk5361</strong><small>バルムンクフェザリオン#zinin</small></div><div class="roster-row"><span>05</span><strong>みみたん</strong><small>mirenahime#331</small></div></article><article class="roster-card"><div class="roster-head"><span>F</span><div><small>NARIAGARI SQUAD</small><strong>ペンタgon</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>poipoi1313</strong><small>勇気を出すコストはなんと無料#poiです</small></div><div class="roster-row"><span>02</span><strong>らいちゃんねる</strong><small>rai channel#dtcm</small></div><div class="roster-row"><span>03</span><strong>kou_612</strong><small>GONkiz#めちゃつよ</small></div><div class="roster-row"><span>04</span><strong>ホコり</strong><small>ホコり#0108</small></div><div class="roster-row"><span>05</span><strong>かんりクラゲ</strong><small>音街ウナ#音街ウナ</small></div></article><article class="roster-card"><div class="roster-head"><span>G</span><div><small>NARIAGARI SQUAD</small><strong>オーディン胴打ち界隈</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>viewtiful_borin</strong><small>美優亭風流　歩林#しーさー</small></div><div class="roster-row"><span>02</span><strong>涼</strong><small>殲滅の主はまた鐘を鳴らす#MHWIB</small></div><div class="roster-row"><span>03</span><strong>Hruc</strong><small>Hruc#krv</small></div><div class="roster-row"><span>04</span><strong>なり</strong><small>50歩ひゃっほー#5510</small></div><div class="roster-row"><span>05</span><strong>s0yonoone</strong><small>YNKS予備軍#8103</small></div></article><article class="roster-card"><div class="roster-head"><span>H</span><div><small>NARIAGARI SQUAD</small><strong>中山げんきくん</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>renpk731</strong><small>騎士募集中#Cute</small></div><div class="roster-row"><span>02</span><strong>ritooo1219</strong><small>ritoooo#0516</small></div><div class="roster-row"><span>03</span><strong>黒永</strong><small>1km先右折です#hahah</small></div><div class="roster-row"><span>04</span><strong>yuuki8552</strong><small>築2000年の寺でチクニー専念#4545</small></div><div class="roster-row"><span>05</span><strong>moko00313</strong><small>moko#ゆらふぃら</small></div></article><article class="roster-card"><div class="roster-head"><span>I</span><div><small>NARIAGARI SQUAD</small><strong>ふぁいぶでゅえりすと</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>うっちー</strong><small>うっちー#9167</small></div><div class="roster-row"><span>02</span><strong>海波</strong><small>yasabird#6716</small></div><div class="roster-row"><span>03</span><strong>noko</strong><small>noko#8128</small></div><div class="roster-row"><span>04</span><strong>noooa._.a</strong><small>noooa#5325</small></div><div class="roster-row"><span>05</span><strong>さめち</strong><small>いつでもどこでも傍に#さめち</small></div></article><article class="roster-card"><div class="roster-head"><span>J</span><div><small>NARIAGARI SQUAD</small><strong>サビ残賛美する産業</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>どろだんご</strong><small>dorodango#どろどろ</small></div><div class="roster-row"><span>02</span><strong>raku</strong><small>RAKU#3611</small></div><div class="roster-row"><span>03</span><strong>yumikoto.</strong><small>空亡アクアTwitch#0304</small></div><div class="roster-row"><span>04</span><strong>helios</strong><small>シナモトロール#noob</small></div><div class="roster-row"><span>05</span><strong>こはく</strong><small>こはく#khk13</small></div></article><article class="roster-card"><div class="roster-head"><span>K</span><div><small>NARIAGARI SQUAD</small><strong>佐藤9</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>佐藤（ちゃむ）</strong><small>rebha#ちゃむだよ</small></div><div class="roster-row"><span>02</span><strong>akilife86</strong><small>topstock#2525</small></div><div class="roster-row"><span>03</span><strong>しるば</strong><small>ぺちぺちしるばあん#411V4</small></div><div class="roster-row"><span>04</span><strong>ゆうと</strong><small>PAJADK#0910</small></div><div class="roster-row"><span>05</span><strong>やまみ</strong><small>やまみだよぉぉぉぉぉん#配信したい</small></div></article><article class="roster-card"><div class="roster-head"><span>L</span><div><small>NARIAGARI SQUAD</small><strong>ネオン・ダメ・ゼッタイ</strong></div><em>5 / 5</em></div><div class="roster-cols"><b>#</b><b>PLAYER</b><b>RIOT ID</b></div><div class="roster-row"><span>01</span><strong>すてら</strong><small>すてら#甘茶好き</small></div><div class="roster-row"><span>02</span><strong>sor4o</strong><small>SORAO#55555</small></div><div class="roster-row"><span>03</span><strong>りょう</strong><small>バカクルクルスパゲッティ</small></div><div class="roster-row"><span>04</span><strong>kiyopon_.1020</strong><small>凝をおこたるんじゃないだわさ#綾小路清隆</small></div><div class="roster-row"><span>05</span><strong>po1fulu_tilo</strong><small>poppyplaytimeの花#ぽぴー</small></div></article></div>
@@ -233,7 +328,12 @@
     </section>
     <section id="news" class="section">
       <div class="section-title"><span>08</span><h2>NEWS</h2><small>ANNOUNCEMENT</small></div>
-      <div class="news-card"><span>2026.09.14</span><h3>NSCC 開催決定</h3><p>成り上がり鯖主催「NSCC - 成り上がり Server Challenge Cup」を開催します。大会詳細と参加方法を確認のうえ、エントリーしてください。</p></div>
+      <div class="news-stack">
+        <div class="news-card latest"><span>2026.10.07</span><h3>大会ルール・メンバー情報を更新</h3><p>回線落ち時の対応をより分かりやすく整理し、ドパガキjackのメンバー変更を反映しました。</p></div>
+        <div class="news-card"><span>2026.10.07</span><h3>NSCC MATCH CENTERを追加</h3><p>カウントダウン・進行ボード・結果速報・チーム検索を追加しました。</p></div>
+        <div class="news-card"><span>2026.10.06</span><h3>予選1 対戦カード決定</h3><p>10月10日に行われる予選1、全6試合の対戦カードを公開しました。</p></div>
+        <div class="news-card"><span>2026.09.14</span><h3>NSCC 開催決定</h3><p>成り上がり鯖主催「NSCC - Nariagari Server Challenge Cup」を開催します。</p></div>
+      </div>
     </section>
     <section id="live" class="section dark">
       <div class="section-title"><span>09</span><h2>配信</h2><small>YOUTUBE LIVE</small></div>
@@ -255,5 +355,6 @@
     </section>
   </main>
   <footer><span>NSCC</span><p>NARIAGARI SERVER CHALLENGE CUP</p><small>© 2026 成り上がり鯖</small></footer>
+  <script src="script.js"></script>
 </body>
 </html>
