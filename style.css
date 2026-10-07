@@ -614,3 +614,40 @@ footer{
   .section-title small{display:none}
   .event-command-section:before{font-size:42px;right:5vw;top:32px}
 }
+
+
+/* FIX 2026-10-07: team letter badge must not cover official team name */
+.roster-head{
+  gap:14px;
+}
+.roster-head>span{
+  flex:0 0 54px;
+  width:54px;
+  height:54px;
+  margin-right:0 !important;
+  display:grid;
+  place-items:center;
+  font:900 italic 30px/1 Rajdhani,sans-serif !important;
+  border-radius:4px;
+  position:relative;
+  z-index:1;
+}
+.roster-head>div{
+  flex:1 1 auto;
+  min-width:0;
+  position:relative;
+  z-index:2;
+}
+.roster-head>div strong{
+  white-space:normal;
+  overflow-wrap:anywhere;
+  line-height:1.25;
+}
+.roster-head>em{
+  flex:0 0 auto;
+}
+@media(max-width:650px){
+  .roster-head{padding:13px 14px;gap:11px}
+  .roster-head>span{flex-basis:46px;width:46px;height:46px;font-size:26px !important}
+  .roster-head>div strong{font-size:19px}
+}
