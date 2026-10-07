@@ -2197,3 +2197,35 @@ main{
     min-height:1030px!important;
   }
 }
+
+
+/* ===== ROSTER LETTER BADGE COMPACT FIX / 2026-10-07 ===== */
+.roster-head{
+  gap:10px!important;
+}
+.roster-head>span{
+  flex:0 0 44px!important;
+  width:44px!important;
+  height:44px!important;
+  font-size:25px!important;
+  box-shadow:0 0 0 2px rgba(124,58,237,.12),0 10px 24px rgba(63,18,99,.40)!important;
+}
+.roster-head>div{
+  min-width:0!important;
+  flex:1 1 auto!important;
+}
+.roster-head>div strong{
+  font-size:20px!important;
+  line-height:1.18!important;
+  overflow-wrap:anywhere!important;
+}
+@media(max-width:650px){
+  .roster-head{gap:8px!important}
+  .roster-head>span{
+    flex-basis:38px!important;
+    width:38px!important;
+    height:38px!important;
+    font-size:22px!important;
+  }
+  .roster-head>div strong{font-size:18px!important}
+}
