@@ -2179,11 +2179,21 @@ main{
 
 
 /* ===== HERO BUTTON BOTTOM SPACE / 2026-10-07 ===== */
+/* hero-official-inner is absolute, so button margin does not expand the hero.
+   Reserve the space on the hero section itself instead. */
+.hero-official{
+  min-height:980px!important;
+}
 .hero-official-actions{
-  margin-bottom:72px!important;
+  margin-bottom:0!important;
+}
+@media(max-width:900px) and (min-width:701px){
+  .hero-official{
+    min-height:950px!important;
+  }
 }
 @media(max-width:700px){
-  .hero-official-actions{
-    margin-bottom:54px!important;
+  .hero-official{
+    min-height:1030px!important;
   }
 }
