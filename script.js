@@ -14,6 +14,7 @@ window.addEventListener('scroll',()=>{const y=scrollY;header.style.boxShadow=y>2
   const finalStart=new Date('2026-10-11T20:30:00+09:00').getTime();
   const eventEnd=new Date('2026-10-12T03:00:00+09:00').getTime();
   const ids={d:document.getElementById('cdDays'),h:document.getElementById('cdHours'),m:document.getElementById('cdMinutes'),s:document.getElementById('cdSeconds')};
+  const heroIds={d:document.getElementById('heroDays'),h:document.getElementById('heroHours'),m:document.getElementById('heroMinutes'),s:document.getElementById('heroSeconds')};
   const badge=document.getElementById('liveStatusBadge');
   const ribbonStatus=document.getElementById('ribbonStatus');
   const stages=[...document.querySelectorAll('#liveProgress article')];
@@ -23,10 +24,18 @@ window.addEventListener('scroll',()=>{const y=scrollY;header.style.boxShadow=y>2
   function update(){
     const now=Date.now();
     let diff=Math.max(0,target-now);
-    ids.d.textContent=pad(Math.floor(diff/86400000));
-    ids.h.textContent=pad(Math.floor(diff%86400000/3600000));
-    ids.m.textContent=pad(Math.floor(diff%3600000/60000));
-    ids.s.textContent=pad(Math.floor(diff%60000/1000));
+    const d=pad(Math.floor(diff/86400000));
+    const h=pad(Math.floor(diff%86400000/3600000));
+    const m=pad(Math.floor(diff%3600000/60000));
+    const s=pad(Math.floor(diff%60000/1000));
+    ids.d.textContent=d;
+    ids.h.textContent=h;
+    ids.m.textContent=m;
+    ids.s.textContent=s;
+    if(heroIds.d)heroIds.d.textContent=d;
+    if(heroIds.h)heroIds.h.textContent=h;
+    if(heroIds.m)heroIds.m.textContent=m;
+    if(heroIds.s)heroIds.s.textContent=s;
 
     badge.classList.remove('live');
     let state='PRE EVENT';
