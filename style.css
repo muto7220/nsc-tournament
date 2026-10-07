@@ -1706,3 +1706,56 @@ main{
 .dayflow-hero>strong em,.day-body small,.dayflow-note b{
   color:#b084ff!important;
 }
+
+
+/* ===== BIGGER NOTES / 2026-10-07 ===== */
+@media (min-width:701px){
+  .header nav a[href="#notes"]{
+    font-size:12px!important;
+    padding:10px 16px!important;
+    min-width:66px;
+    text-align:center;
+    letter-spacing:.5px!important;
+  }
+}
+
+#notes{
+  padding-top:118px!important;
+  padding-bottom:118px!important;
+}
+#notes .section-title{
+  margin-bottom:42px!important;
+}
+#notes .section-title h2{
+  font-size:clamp(38px,3.8vw,54px)!important;
+}
+#notes .notes-box{
+  max-width:1280px!important;
+  min-height:235px!important;
+  padding:48px 52px!important;
+  border-left-width:5px!important;
+}
+#notes .notes-label{
+  font-size:15px!important;
+  letter-spacing:4px!important;
+  margin-bottom:22px!important;
+}
+#notes .notes-box p{
+  font-size:16px!important;
+  line-height:2.05!important;
+  max-width:1100px;
+}
+
+@media(max-width:700px){
+  #notes{
+    padding-top:82px!important;
+    padding-bottom:82px!important;
+  }
+  #notes .notes-box{
+    min-height:190px!important;
+    padding:34px 28px!important;
+  }
+  #notes .notes-box p{
+    font-size:14px!important;
+  }
+}
