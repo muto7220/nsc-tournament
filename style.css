@@ -2043,3 +2043,47 @@ main{
   .hero-official-actions a{width:100%}
   .hero-corner{display:none}
 }
+
+
+/* ===== HERO LAYERING FIX / 2026-10-07 ===== */
+.hero-official{
+  isolation:isolate!important;
+}
+.hero-official .hero-bg{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+}
+.hero-official .hero-grid{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  pointer-events:none!important;
+}
+.hero-stage-glow{
+  z-index:2!important;
+  pointer-events:none!important;
+}
+.hero-official:before,
+.hero-official:after{
+  z-index:2!important;
+  pointer-events:none!important;
+}
+.hero-official-inner{
+  position:relative!important;
+  z-index:10!important;
+}
+.hero-status,
+.hero-mark,
+.hero-dates,
+.hero-stats,
+.hero-countdown,
+.hero-official-actions{
+  position:relative!important;
+  z-index:11!important;
+}
+.hero-corner,
+.hero-official .scroll{
+  z-index:12!important;
+}
