@@ -1621,3 +1621,27 @@ footer{
   }
   .hero{padding-top:150px!important}
 }
+
+
+/* ===== HEADER Z-INDEX FIX / 2026-10-07 ===== */
+.tournament-ribbon{
+  z-index:100!important;
+}
+.header{
+  z-index:90!important;
+  position:fixed!important;
+  isolation:isolate;
+}
+main{
+  position:relative!important;
+  z-index:1!important;
+}
+.hero,
+.hero-bg,
+.hero-grid{
+  z-index:auto;
+}
+.hero-bg,
+.hero-grid{
+  pointer-events:none;
+}
