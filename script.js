@@ -15,6 +15,7 @@ window.addEventListener('scroll',()=>{const y=scrollY;header.style.boxShadow=y>2
   const eventEnd=new Date('2026-10-12T03:00:00+09:00').getTime();
   const ids={d:document.getElementById('cdDays'),h:document.getElementById('cdHours'),m:document.getElementById('cdMinutes'),s:document.getElementById('cdSeconds')};
   const badge=document.getElementById('liveStatusBadge');
+  const ribbonStatus=document.getElementById('ribbonStatus');
   const stages=[...document.querySelectorAll('#liveProgress article')];
   const setStage=name=>stages.forEach(x=>x.classList.toggle('active',x.dataset.stage===name));
   const pad=n=>String(n).padStart(2,'0');
@@ -28,12 +29,15 @@ window.addEventListener('scroll',()=>{const y=scrollY;header.style.boxShadow=y>2
     ids.s.textContent=pad(Math.floor(diff%60000/1000));
 
     badge.classList.remove('live');
-    if(now<opening){badge.querySelector('span').textContent='PRE EVENT';setStage('pre');}
-    else if(now<day1){badge.querySelector('span').textContent='OPENING NOW';badge.classList.add('live');setStage('opening');}
-    else if(now<day1End){badge.querySelector('span').textContent='DAY 1 LIVE';badge.classList.add('live');setStage('day1');}
-    else if(now<finalStart){badge.querySelector('span').textContent='FINAL DAY';setStage('final');}
-    else if(now<eventEnd){badge.querySelector('span').textContent='FINAL LIVE';badge.classList.add('live');setStage('final');}
-    else{badge.querySelector('span').textContent='EVENT COMPLETE';setStage('final');}
+    let state='PRE EVENT';
+    if(now<opening){state='PRE EVENT';setStage('pre');}
+    else if(now<day1){state='OPENING NOW';badge.classList.add('live');setStage('opening');}
+    else if(now<day1End){state='DAY 1 LIVE';badge.classList.add('live');setStage('day1');}
+    else if(now<finalStart){state='FINAL DAY';setStage('final');}
+    else if(now<eventEnd){state='FINAL LIVE';badge.classList.add('live');setStage('final');}
+    else{state='EVENT COMPLETE';setStage('final');}
+    badge.querySelector('span').textContent=state;
+    if(ribbonStatus)ribbonStatus.textContent=state;
   }
   update();setInterval(update,1000);
 })();
