@@ -141,7 +141,7 @@ button.reset{
 <div class="note" id="note">LIVE VIEW：ページを開いたままでOKです。主催者の操作が自動で反映されます。</div>
 </section></div>
 <script>
-const TEAMS=["とっとこ走るよもす太郎","load-of-time","クラッちゃんポン","chiぬーず","ドパガキjack","ペンタgon","オーディン胴打ち界隈","中山げんきくん","ふぁいぶでゅえりすと","サビ残賛美する産業","佐藤9","ネオン・ダメ・ゼッタイ"];
+const TEAMS=["とっとこ走るよもす太郎","load-of-time","クラッちゃんポン","chiぬーず","脱法Wデュエリスト","ペンタgon","オーディン胴打ち界隈","中山げんきくん","ふぁいぶでゅえりすと","サビ残賛美する産業","佐藤9","ネオン・ダメ・ゼッタイ"];
 const PHASES={
   r1:{label:"予選1",target:6},
   r2w:{label:"予選2｜勝者側",target:3},
@@ -173,7 +173,9 @@ if(isHost){
 function canonicalTeamName(name){
   const fixes={
     "どっとこ走るよもす太郎":"とっとこ走るよもす太郎",
-    "ドンパガキjack":"ドパガキjack",
+    "ドンパガキjack":"脱法Wデュエリスト",
+    "ドパガキjack":"脱法Wデュエリスト",
+    "ドパガキ":"脱法Wデュエリスト",
     "サビ残轟美する産業":"サビ残賛美する産業"
   };
   return fixes[name]||name;
@@ -333,6 +335,7 @@ function applyRemote(data){
     currentDrawer:data.currentDrawer||"",
     configured:data.configured!==false
   };
+  migrateStateNames();
   renderAll();
 }
 function resetCurrent(){
