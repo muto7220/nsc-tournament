@@ -125,7 +125,7 @@ select{
 <script>
 const MATCHES=[
  ["オーディン胴打ち界隈","とっとこ走るよもす太郎"],
- ["ドパガキjack","サビ残賛美する産業"],
+ ["脱法Wデュエリスト","サビ残賛美する産業"],
  ["chiぬーず","佐藤9"],
  ["中山げんきくん","ネオン・ダメ・ゼッタイ"],
  ["ふぁいぶでゅえりすと","load-of-time"],
@@ -139,6 +139,19 @@ if(isHost){app.classList.add("hostmode");status.classList.add("host");viewerInfo
 else{app.classList.add("viewer");viewerInfo.innerHTML="<b>閲覧モード</b>：主催者の操作がこの画面にリアルタイムで反映されます。";}
 
 function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+// 旧チーム名で保存された先攻・後攻の結果も、新チーム名で表示します。
+function canonicalTeamName(name){
+  return ({"ドパガキjack":"脱法Wデュエリスト","ドンパガキjack":"脱法Wデュエリスト","ドパガキ":"脱法Wデュエリスト"})[name]||name;
+}
+function migrateStateNames(){
+  if(!state||typeof state!=="object")return;
+  state.heads=canonicalTeamName(state.heads||"");
+  state.winner=canonicalTeamName(state.winner||"");
+  state.results=Array.from({length:MATCHES.length},(_,i)=>{
+    const r=Array.isArray(state.results)?state.results[i]:null;
+    return r?{first:canonicalTeamName(r.first),second:canonicalTeamName(r.second)}:null;
+  });
+}
 function setStatus(t,on){statusText.textContent=t;status.classList.toggle("online",!!on);if(isHost)status.classList.add("host")}
 function save(){if(isHost)try{localStorage.setItem("nsccSideStateV1",JSON.stringify(state))}catch(e){}}
 function load(){if(!isHost)return;try{const r=localStorage.getItem("nsccSideStateV1");if(r){const s=JSON.parse(r);if(s&&Array.isArray(s.results))state=s}}catch(e){}}
@@ -196,7 +209,7 @@ function toss(){
   },960);
   save();broadcast();
 }
-function applyRemote(msg){if(!msg||msg.type!=="state"||!msg.state)return;state=msg.state;render()}
+function applyRemote(msg){if(!msg||msg.type!=="state"||!msg.state)return;state=msg.state;migrateStateNames();render()}
 function initHost(){
   if(typeof Peer==="undefined"){setStatus("LIVE機能の読込失敗",false);return}
   setStatus("配信接続中",false);peer=new Peer(HOST_ID);
@@ -212,6 +225,6 @@ function connectViewer(){
   peer.on("error",schedule);
 }
 function schedule(){setStatus("主催者の接続待ち",false);clearTimeout(reconnectTimer);reconnectTimer=setTimeout(connectViewer,2500)}
-load();if(isHost){setupControls();matchSelect.addEventListener("change",()=>{state.matchIndex=Number(matchSelect.value);state.coinResult="";state.winner="";state.heads="";refreshHeads();state.heads=headsSelect.value;save();render();broadcast()});headsSelect.addEventListener("change",()=>{state.heads=headsSelect.value;state.coinResult="";state.winner="";state.results[state.matchIndex]=null;save();render();broadcast()});document.getElementById("toss").addEventListener("click",toss);document.getElementById("clearCurrent").addEventListener("click",()=>{if(confirm("この対戦の結果をやり直しますか？"))clearCurrent()});document.getElementById("resetAll").addEventListener("click",()=>{if(confirm("先攻・後攻の全結果をリセットしますか？")){state={matchIndex:0,heads:"",coinResult:"",winner:"",results:Array(MATCHES.length).fill(null)};setupControls();save();render();broadcast()}});document.getElementById("chooseFirst").addEventListener("click",()=>choose("first"));document.getElementById("chooseSecond").addEventListener("click",()=>choose("second"));initHost()}else connectViewer();
+load();migrateStateNames();if(isHost){setupControls();matchSelect.addEventListener("change",()=>{state.matchIndex=Number(matchSelect.value);state.coinResult="";state.winner="";state.heads="";refreshHeads();state.heads=headsSelect.value;save();render();broadcast()});headsSelect.addEventListener("change",()=>{state.heads=headsSelect.value;state.coinResult="";state.winner="";state.results[state.matchIndex]=null;save();render();broadcast()});document.getElementById("toss").addEventListener("click",toss);document.getElementById("clearCurrent").addEventListener("click",()=>{if(confirm("この対戦の結果をやり直しますか？"))clearCurrent()});document.getElementById("resetAll").addEventListener("click",()=>{if(confirm("先攻・後攻の全結果をリセットしますか？")){state={matchIndex:0,heads:"",coinResult:"",winner:"",results:Array(MATCHES.length).fill(null)};setupControls();save();render();broadcast()}});document.getElementById("chooseFirst").addEventListener("click",()=>choose("first"));document.getElementById("chooseSecond").addEventListener("click",()=>choose("second"));initHost()}else connectViewer();
 render();
 </script></body></html>
