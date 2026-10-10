@@ -2377,3 +2377,47 @@ main{
   .result-grid article.nscc-scored-match .nscc-match-score{font-size:15px}
   .nscc-results-legend>small{margin-left:0;flex-basis:100%}
 }
+
+
+/* NSCC ROUND TWO / seeded matchups from confirmed round one results */
+.nscc-round2-section{
+  background:radial-gradient(circle at 90% 6%,rgba(124,58,237,.18),transparent 39%),
+  linear-gradient(180deg,#090412,#08020f)!important;
+}
+.nscc-r2-banner{display:flex;justify-content:space-between;align-items:center;gap:20px;border:1px solid rgba(174,143,244,.4);border-left:4px solid #ad88ff;padding:28px 30px;background:linear-gradient(115deg,#1d0d32,#0a0713 65%)}
+.nscc-r2-banner p{margin:0 0 9px;color:#bd9aff;font:800 11px Rajdhani,sans-serif;letter-spacing:2px}
+.nscc-r2-banner h2{margin:0 0 9px;font-size:clamp(25px,3.4vw,42px);color:#faf6ff}
+.nscc-r2-banner h2 span{color:#bd9aff}
+.nscc-r2-banner small{color:#aaa0b9;font:700 11px Rajdhani,sans-serif;letter-spacing:1px}
+.nscc-r2-locked{display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;white-space:nowrap;border:1px solid #62428b;background:rgba(139,92,246,.12);padding:16px}
+.nscc-r2-locked span{color:#a69db4;font:700 10px Rajdhani,sans-serif;letter-spacing:1px}
+.nscc-r2-locked strong{color:#dbc9ff;font:900 18px Rajdhani,sans-serif;letter-spacing:1.2px}
+.nscc-r2-desc{color:#bfb4ce;font-size:12px;line-height:2;margin:18px 0 35px}
+.nscc-r2-desc b{color:#f0e5ff}
+.nscc-r2-group{margin-top:32px}
+.nscc-r2-group-title{display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap}
+.nscc-r2-group-title h3{margin:0;font-size:19px;color:#f5f0ff}
+.nscc-r2-group-title small{color:#9b8bae;font:700 10px Rajdhani,sans-serif;letter-spacing:1px}
+.nscc-r2-group-indicator{width:4px;height:22px;background:#a78bfa;box-shadow:0 0 14px rgba(167,139,250,.45)}
+.nscc-r2-group-indicator.loser{background:#f18a9b;box-shadow:0 0 14px rgba(241,138,155,.22)}
+.nscc-r2-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.nscc-r2-card{display:flex;flex-direction:column;min-width:0;border:1px solid rgba(167,139,250,.27);background:linear-gradient(150deg,rgba(109,40,217,.12),transparent 53%),#10091b;transition:border-color .2s,transform .2s}
+.nscc-r2-card:hover{border-color:#a78bfa;transform:translateY(-2px)}
+.nscc-r2-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;border-bottom:1px solid rgba(167,139,250,.18)}
+.nscc-r2-card-top span{font:900 12px Rajdhani,sans-serif;letter-spacing:1.5px;color:#bba0ff}
+.nscc-r2-card-top small{font:800 10px Rajdhani,sans-serif;letter-spacing:.7px;color:#8b83a0}
+.nscc-r2-versus{display:flex;flex-direction:column;gap:5px;flex:1;padding:19px 16px}
+.nscc-r2-team{display:flex;flex-direction:column;gap:5px;align-items:center;min-width:0;text-align:center}
+.nscc-r2-team small{font:800 10px Rajdhani,sans-serif;letter-spacing:1px;color:#a890df}
+.nscc-r2-team strong{font-size:15px;line-height:1.55;color:#f5f0fd;overflow-wrap:anywhere}
+.nscc-r2-team>span{color:#988ba7;font-size:10px}
+.nscc-r2-mid{text-align:center;padding:3px 0;display:flex;align-items:center;justify-content:center;gap:10px}
+.nscc-r2-mid b{font:900 20px Rajdhani,sans-serif;color:#bda0ff}
+.nscc-r2-score{font:900 12px Rajdhani,sans-serif;color:#7b688c}
+.nscc-r2-card-foot{display:flex;flex-direction:column;gap:4px;border-top:1px solid rgba(167,139,250,.19);padding:13px 17px;background:rgba(139,92,246,.065)}
+.nscc-r2-card-foot>span{font-size:11px;color:#c1afdd}
+.nscc-r2-card-foot b{color:#f0e5ff}
+.nscc-r2-card-foot>small{font-size:10px;color:#a092b0}
+.nscc-r2-notice{margin:26px 0 0;border-left:3px solid #8b5cf6;background:rgba(139,92,246,.07);padding:16px 20px;color:#b0a2c0;font-size:11px;line-height:1.8}
+@media(max-width:930px){.nscc-r2-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:630px){.nscc-r2-banner{padding:23px 18px;display:block}.nscc-r2-locked{width:max-content;margin-top:16px;padding:9px 13px}.nscc-r2-grid{grid-template-columns:1fr}.nscc-r2-card{min-height:0}.nscc-r2-group-title{gap:9px}}
