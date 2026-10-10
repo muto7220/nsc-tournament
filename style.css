@@ -2446,3 +2446,23 @@ main{
 }
 .nscc-stream-match--round2>small{color:#d1baff}
 .nscc-stream-match--round2 .nscc-stream-teams>span{color:#f2eafe}
+
+
+/* NSCC R2 result badge styling */
+.nscc-r2-card[data-result="complete"]{border-color:rgba(167,139,250,.48)}
+.nscc-r2-card[data-result="complete"] .nscc-r2-card-top>small{color:#d2baff}
+.nscc-r2-card[data-result="complete"] .nscc-r2-score{color:#f4e9ff;font-size:16px;font-weight:900}
+.nscc-r2-card[data-result="complete"] .nscc-r2-team{border-radius:5px;padding:11px 7px}
+.nscc-r2-card[data-result="complete"][data-winner="left"] .nscc-r2-team[data-side="left"],
+.nscc-r2-card[data-result="complete"][data-winner="right"] .nscc-r2-team[data-side="right"]{
+ border:1px solid rgba(167,139,250,.55);
+ background:linear-gradient(145deg,rgba(139,92,246,.28),rgba(74,29,130,.12));
+}
+.nscc-r2-card[data-result="complete"][data-winner="left"] .nscc-r2-team[data-side="right"],
+.nscc-r2-card[data-result="complete"][data-winner="right"] .nscc-r2-team[data-side="left"]{
+ border:1px solid rgba(241,86,104,.32);
+ background:linear-gradient(145deg,rgba(241,86,104,.14),rgba(40,12,25,.14));
+}
+.nscc-r2-outcome{font:900 11px Rajdhani,sans-serif;letter-spacing:.8px;padding:3px 12px;border-radius:3px}
+.nscc-r2-win{background:#ae8dff;color:#170823}
+.nscc-r2-loss{background:rgba(241,86,104,.17);color:#ff9dab;border:1px solid rgba(241,86,104,.3)}
