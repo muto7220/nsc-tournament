@@ -2421,3 +2421,28 @@ main{
 .nscc-r2-notice{margin:26px 0 0;border-left:3px solid #8b5cf6;background:rgba(139,92,246,.07);padding:16px 20px;color:#b0a2c0;font-size:11px;line-height:1.8}
 @media(max-width:930px){.nscc-r2-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:630px){.nscc-r2-banner{padding:23px 18px;display:block}.nscc-r2-locked{width:max-content;margin-top:16px;padding:9px 13px}.nscc-r2-grid{grid-template-columns:1fr}.nscc-r2-card{min-height:0}.nscc-r2-group-title{gap:9px}}
+
+
+/* NSCC — prelim round two live broadcast allocations */
+.nscc-r2-broadcast{
+  border-top:1px solid rgba(167,139,250,.30);padding:13px 17px;
+  display:flex;flex-direction:column;gap:6px;
+  background:linear-gradient(90deg,rgba(124,58,237,.18),rgba(64,28,109,.06));
+}
+.nscc-r2-broadcast>span{
+  color:#a995ce;font-size:10px;font-weight:800;letter-spacing:.05em;
+}
+.nscc-r2-broadcast>a{
+  color:#eedbff!important;font-size:13px;font-weight:900;line-height:1.5;
+  text-decoration:none;overflow-wrap:anywhere;
+}
+.nscc-r2-broadcast>a:hover{text-decoration:underline;text-underline-offset:3px;color:#fff!important}
+.nscc-r2-broadcast em{font-style:normal;color:#bba0ff;margin-left:5px}
+.nscc-stream-match--round2{
+  padding:13px 13px 15px;margin:0 -6px;
+  border:1px solid rgba(167,139,250,.35);
+  background:linear-gradient(115deg,rgba(107,55,200,.17),rgba(32,16,54,.22));
+  border-radius:4px;
+}
+.nscc-stream-match--round2>small{color:#d1baff}
+.nscc-stream-match--round2 .nscc-stream-teams>span{color:#f2eafe}
