@@ -2569,3 +2569,49 @@ main{
   .finalists-grid article.nscc-finalist-card{min-height:152px;padding:23px 14px!important}
   .finalists-grid article.nscc-finalist-card b{font-size:24px!important}
 }
+
+
+/* NSCC 2026 GRAND FINAL / ALL SIX ROUND ROBIN FIXTURES */
+.nscc-finals-section{background:radial-gradient(ellipse at 50% 2%,rgba(151,100,235,.2),transparent 44%),linear-gradient(170deg,#0a0615,#060410 70%)!important;border-top:1px solid rgba(190,145,255,.28)}
+.nscc-finals-header{display:flex;align-items:center;justify-content:space-between;gap:22px;margin-bottom:18px;border-left:3px solid #b997ff;padding-left:18px}
+.nscc-finals-header p{color:#c39ff5;font:800 11px Rajdhani,sans-serif;letter-spacing:2px;margin:0 0 7px}
+.nscc-finals-header h2{font:900 clamp(29px,4vw,48px)/1.2 Rajdhani,sans-serif;color:#f6efff;margin:0 0 9px}
+.nscc-finals-header h2 span{color:#bba0ef}
+.nscc-finals-header small{font:700 11px Rajdhani,sans-serif;color:#b8a1cf;letter-spacing:1.2px}
+.nscc-finals-status{text-align:center;min-width:133px;border:1px solid rgba(189,151,247,.48);background:rgba(139,80,218,.12);padding:13px}
+.nscc-finals-status span{display:block;color:#ad98ca;font:800 11px Rajdhani,sans-serif;letter-spacing:1.4px}
+.nscc-finals-status strong{display:block;color:#e5d3ff;font:900 21px Rajdhani,sans-serif;letter-spacing:1px}
+.nscc-finals-desc{font-size:13px;color:#c8bad8;line-height:1.9;margin:14px 0 27px}
+.nscc-finals-desc b{color:#e8d7ff}
+.nscc-finals-rounds{display:grid;gap:25px}
+.nscc-final-round{border:1px solid rgba(173,137,236,.22);padding:20px;background:linear-gradient(135deg,rgba(119,68,181,.06),transparent 65%),#090615}
+.nscc-final-round-heading{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px}
+.nscc-final-round-heading small{color:#a889cf;font:800 10px Rajdhani,sans-serif;letter-spacing:1.6px}
+.nscc-final-round-heading h3{font:900 24px Rajdhani,sans-serif;margin:0;color:#f1e7ff}
+.nscc-final-round-heading>span{color:#b9a3d4;border:1px solid rgba(171,139,226,.26);padding:5px 8px;font:800 10px Rajdhani,sans-serif}
+.nscc-final-match-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.nscc-final-card{min-width:0;border:1px solid rgba(183,146,234,.25);background:#0e0a1b;position:relative;overflow:hidden}
+.nscc-final-card-top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(183,146,234,.13);padding:12px 16px;background:rgba(157,104,241,.045)}
+.nscc-final-card-top span{font:900 11px Rajdhani,sans-serif;color:#d2b4f6;letter-spacing:1.3px}
+.nscc-final-card-top b{font:800 9px Rajdhani,sans-serif;color:#ac93c8;letter-spacing:1.3px}
+.nscc-final-versus{display:grid;grid-template-columns:minmax(0,1fr) 59px minmax(0,1fr);align-items:center;text-align:center;gap:7px;min-height:140px;padding:18px 12px}
+.nscc-final-team{min-width:0;display:flex;flex-direction:column;align-items:center;gap:10px}
+.nscc-final-team small{font:800 10px Rajdhani,sans-serif;color:#a89bbd;letter-spacing:1.1px}
+.nscc-final-team strong{font:900 clamp(15px,2vw,23px)/1.32 Rajdhani,sans-serif;overflow-wrap:anywhere;color:var(--f-color);text-shadow:0 0 17px rgba(var(--f-rgb),.13)}
+.nscc-final-team--red{--f-color:#ff637d;--f-rgb:255,99,125}
+.nscc-final-team--blue{--f-color:#6dbbff;--f-rgb:109,187,255}
+.nscc-final-team--purple{--f-color:#c69bff;--f-rgb:198,155,255}
+.nscc-final-team--green{--f-color:#70e4b6;--f-rgb:112,228,182}
+.nscc-final-score{display:flex;flex-direction:column;align-items:center;gap:5px;color:#a386c4}
+.nscc-final-score em{font:900 italic 15px Rajdhani,sans-serif;letter-spacing:1px}
+.nscc-final-score b{font:900 18px Rajdhani,sans-serif;letter-spacing:1px}
+.nscc-final-card-bottom{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:10px 15px;border-top:1px solid rgba(183,146,234,.12)}
+.nscc-final-card-bottom span{color:#a794bd;font-size:10px}
+.nscc-final-card-bottom small{color:#8d779f;font:700 9px Rajdhani,sans-serif;white-space:nowrap}
+.nscc-finals-notice{margin-top:21px;padding:14px 19px;border-left:3px solid #9871dc;background:rgba(142,87,219,.10);display:flex;flex-direction:column;gap:5px}
+.nscc-finals-notice b{color:#ccb2ef;font:900 11px Rajdhani,sans-serif;letter-spacing:1px}
+.nscc-finals-notice span{color:#b9a7d0;font-size:11px;line-height:1.8}
+.final-rounds div span{overflow-wrap:anywhere;line-height:1.55;font-size:13px}
+.final-rounds div span em{font-style:normal;color:#b18ef1}
+@media(max-width:850px){.nscc-final-match-grid{grid-template-columns:1fr}.nscc-finals-header{align-items:flex-start}.nscc-final-team strong{font-size:20px}}
+@media(max-width:530px){.nscc-finals-header{flex-direction:column}.nscc-finals-status{align-self:stretch;text-align:left}.nscc-final-round{padding:12px}.nscc-final-versus{padding:14px 7px;grid-template-columns:minmax(0,1fr) 39px minmax(0,1fr);gap:4px}.nscc-final-team strong{font-size:17px}.nscc-final-card-bottom{display:block}.nscc-final-card-bottom small{display:block;margin-top:5px}}
