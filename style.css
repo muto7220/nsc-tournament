@@ -2297,3 +2297,83 @@ main{
   .match-broadcast>a{text-align:left}
   .nscc-stream-card{min-height:0}
 }
+
+
+/* NSCC 2026 / WIN-LOSE styling prepared ahead of kick-off.
+   To publish a confirmed result, change the matching article to:
+   data-result="complete" data-winner="left" (or "right"),
+   update .nscc-match-score (e.g. "13 - 8"), and change
+   .nscc-result-label to "FINAL". Pending matches remain neutral. */
+.nscc-results-legend{
+  display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px;
+  margin:0 0 15px;padding:12px 16px;
+  border:1px solid rgba(174,143,244,.2);
+  background:rgba(14,7,27,.6);
+}
+.nscc-results-legend>span{display:inline-flex;gap:7px;align-items:center;color:#bfb3d3;font-size:11px;font-weight:700}
+.nscc-results-legend b{display:inline-block;padding:5px 9px;border-radius:3px;font:900 11px Rajdhani,'Noto Sans JP',sans-serif;letter-spacing:1px}
+.nscc-results-legend .nscc-legend-win{background:rgba(139,92,246,.22);color:#d6c2ff;border:1px solid rgba(167,139,250,.58)}
+.nscc-results-legend .nscc-legend-lose{background:rgba(241,86,104,.12);color:#ff9fae;border:1px solid rgba(241,86,104,.4)}
+.nscc-results-legend>small{margin-left:auto;color:#978ca8;font-size:10px}
+.result-grid article.nscc-scored-match{min-height:152px;padding:38px 15px 27px;border-color:rgba(180,146,245,.21)}
+.result-grid article.nscc-scored-match>.nscc-result-vs{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(56px,auto) minmax(0,1fr)!important;
+  gap:6px;align-items:stretch;margin-top:12px;
+}
+.result-grid article.nscc-scored-match .nscc-result-team{
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;
+  min-width:0;min-height:73px;padding:11px 7px;border:1px solid transparent;border-radius:4px;
+  background:rgba(255,255,255,.018);transition:background .2s,border-color .2s;
+}
+.result-grid article.nscc-scored-match .nscc-result-team>b{
+  color:#e0dce8;font-size:13px!important;line-height:1.55;font-weight:800;
+  overflow-wrap:anywhere;text-align:center;
+}
+.result-grid article.nscc-scored-match .nscc-match-score{
+  width:auto;height:auto;min-width:56px;min-height:40px;
+  padding:6px 3px;align-self:center;white-space:nowrap;clip-path:none;
+  background:rgba(76,29,149,.12)!important;border:1px solid rgba(139,92,246,.35)!important;
+  color:#b69cff;font:900 19px Rajdhani,'Noto Sans JP',sans-serif;
+  border-radius:3px;
+}
+.result-grid article.nscc-scored-match .nscc-outcome{
+  display:none;border-radius:3px;padding:3px 8px;
+  font:900 10px Rajdhani,'Noto Sans JP',sans-serif;letter-spacing:1.2px;
+}
+.result-grid article.nscc-scored-match[data-result="complete"]{
+  border-color:rgba(167,139,250,.45);
+}
+.result-grid article.nscc-scored-match[data-result="complete"] .nscc-match-score{
+  color:#f8f3ff;font-size:18px;
+}
+.result-grid article.nscc-scored-match[data-result="complete"][data-winner="left"] .nscc-team-left,
+.result-grid article.nscc-scored-match[data-result="complete"][data-winner="right"] .nscc-team-right{
+  border-color:rgba(167,139,250,.68);
+  background:linear-gradient(145deg,rgba(139,92,246,.32),rgba(139,92,246,.12));
+  box-shadow:inset 0 0 20px rgba(139,92,246,.08);
+}
+.result-grid article.nscc-scored-match[data-result="complete"][data-winner="left"] .nscc-team-right,
+.result-grid article.nscc-scored-match[data-result="complete"][data-winner="right"] .nscc-team-left{
+  border-color:rgba(241,86,104,.33);
+  background:linear-gradient(145deg,rgba(241,86,104,.14),rgba(40,12,25,.19));
+}
+.result-grid article.nscc-scored-match[data-result="complete"][data-winner="left"] .nscc-team-left .nscc-outcome-win,
+.result-grid article.nscc-scored-match[data-result="complete"][data-winner="right"] .nscc-team-right .nscc-outcome-win{
+  display:inline-block;background:#ae8dff;color:#170823;
+}
+.result-grid article.nscc-scored-match[data-result="complete"][data-winner="left"] .nscc-team-right .nscc-outcome-lose,
+.result-grid article.nscc-scored-match[data-result="complete"][data-winner="right"] .nscc-team-left .nscc-outcome-lose{
+  display:inline-block;background:rgba(241,86,104,.19);color:#ff9dab;border:1px solid rgba(241,86,104,.36)
+}
+.result-grid article.nscc-scored-match[data-result="complete"]>.nscc-result-label{color:#c5afff}
+@media(max-width:600px){
+  .result-grid article.nscc-scored-match{padding:38px 9px 26px;min-height:145px}
+  .result-grid article.nscc-scored-match>.nscc-result-vs{
+    grid-template-columns:minmax(0,1fr) 60px minmax(0,1fr)!important;
+    gap:4px;
+  }
+  .result-grid article.nscc-scored-match .nscc-result-team{padding:9px 4px;min-height:70px}
+  .result-grid article.nscc-scored-match .nscc-result-team>b{font-size:11px!important}
+  .result-grid article.nscc-scored-match .nscc-match-score{font-size:15px}
+  .nscc-results-legend>small{margin-left:0;flex-basis:100%}
+}
