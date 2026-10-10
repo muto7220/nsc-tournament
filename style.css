@@ -2466,3 +2466,24 @@ main{
 .nscc-r2-outcome{font:900 11px Rajdhani,sans-serif;letter-spacing:.8px;padding:3px 12px;border-radius:3px}
 .nscc-r2-win{background:#ae8dff;color:#170823}
 .nscc-r2-loss{background:rgba(241,86,104,.17);color:#ff9dab;border:1px solid rgba(241,86,104,.3)}
+
+
+/* NSCC 2026 / LAST CHANCE — seeded three-match stage */
+.nscc-lc-section{background:radial-gradient(circle at 10% 5%,rgba(171,96,245,.17),transparent 45%),linear-gradient(165deg,#10051b,#080411)!important}
+.nscc-lc-banner{border-left-color:#dfb6ff}
+.nscc-lc-quick-note{border:1px solid rgba(174,143,244,.32);border-left:3px solid #b48afb;background:rgba(125,71,188,.12);padding:16px 20px;margin:18px 0 24px;display:flex;flex-direction:column;gap:8px;line-height:1.7}
+.nscc-lc-quick-note b{font:900 14px Rajdhani,sans-serif;color:#e1d0fa;letter-spacing:1.1px}
+.nscc-lc-quick-note span{color:#bcaaca;font-size:12px}
+.nscc-lc-card{border-color:rgba(176,130,237,.38)}
+.nscc-lc-card .nscc-r2-card-top{background:rgba(137,63,211,.09)}
+.nscc-lc-rankings{margin-top:35px}
+.nscc-lc-rankings h3{font-size:20px;color:#f1e6ff;margin:0 0 6px}
+.nscc-lc-rankings>p{color:#a997bd;font-size:11px;margin:0 0 13px}
+.nscc-lc-table-scroll{max-width:100%;overflow-x:auto;border:1px solid rgba(167,139,250,.26);border-radius:5px}
+.nscc-lc-table{width:100%;border-collapse:collapse;min-width:510px;background:rgba(17,9,31,.84);font-size:12px}
+.nscc-lc-table th,.nscc-lc-table td{text-align:left;border-bottom:1px solid rgba(167,139,250,.16);padding:13px 12px;color:#d4c7e2}
+.nscc-lc-table th{background:rgba(121,65,207,.16);color:#b99cec;font-weight:800;letter-spacing:.04em;font-size:11px}
+.nscc-lc-table td:first-child,.nscc-lc-table td:last-child{color:#efe3ff;font-weight:900}
+.nscc-lc-table small{color:#947cad;margin-left:4px;font-size:9px}
+.nscc-lc-table tbody tr:last-child td{border-bottom:0}
+@media(max-width:630px){.nscc-lc-quick-note{padding:14px}.nscc-lc-table th,.nscc-lc-table td{padding:10px 8px}}
