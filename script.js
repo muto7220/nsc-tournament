@@ -11,7 +11,7 @@ window.addEventListener('scroll',()=>{const y=scrollY;header.style.boxShadow=y>2
   const opening=new Date('2026-10-10T20:30:00+09:00').getTime();
   const day1=new Date('2026-10-10T21:00:00+09:00').getTime();
   const day1End=new Date('2026-10-11T03:00:00+09:00').getTime();
-  const finalStart=new Date('2026-10-11T20:30:00+09:00').getTime();
+  const finalStart=new Date('2026-10-11T21:00:00+09:00').getTime();
   const eventEnd=new Date('2026-10-12T03:00:00+09:00').getTime();
   const ids={d:document.getElementById('cdDays'),h:document.getElementById('cdHours'),m:document.getElementById('cdMinutes'),s:document.getElementById('cdSeconds')};
   const heroIds={d:document.getElementById('heroDays'),h:document.getElementById('heroHours'),m:document.getElementById('heroMinutes'),s:document.getElementById('heroSeconds')};
