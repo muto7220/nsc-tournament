@@ -2511,3 +2511,61 @@ main{
 }
 .nscc-stream-match--lastchance>small{color:#debfff}
 .nscc-stream-match--lastchance .nscc-stream-teams>span{color:#f2e9ff}
+
+
+/* NSCC FINAL FOUR TEAM COLORS — color-coded finalist plates */
+.finalists-grid .nscc-finalist--red{--finalist-color:#ff637d;--finalist-rgb:255,99,125}
+.finalists-grid .nscc-finalist--blue{--finalist-color:#6dbbff;--finalist-rgb:109,187,255}
+.finalists-grid .nscc-finalist--purple{--finalist-color:#c69bff;--finalist-rgb:198,155,255}
+.finalists-grid .nscc-finalist--green{--finalist-color:#70e4b6;--finalist-rgb:112,228,182}
+.finalists-grid article.nscc-finalist-card{
+  padding:26px 14px 22px!important;
+  min-height:160px;
+  border:1px solid rgba(var(--finalist-rgb),.48)!important;
+  border-top:3px solid var(--finalist-color)!important;
+  background:
+    radial-gradient(ellipse at 50% -12%,rgba(var(--finalist-rgb),.21),transparent 72%),
+    linear-gradient(160deg,rgba(var(--finalist-rgb),.10),rgba(9,6,19,.30) 70%),
+    #0d0817!important;
+  box-shadow:inset 0 0 24px rgba(var(--finalist-rgb),.055),0 9px 25px rgba(0,0,0,.20);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+  overflow:hidden;
+}
+.finalists-grid article.nscc-finalist-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(var(--finalist-rgb),.78)!important;
+  box-shadow:0 12px 32px rgba(var(--finalist-rgb),.13);
+}
+.finalists-grid article.nscc-finalist-card::before{
+  background:linear-gradient(var(--finalist-color),rgba(var(--finalist-rgb),.08))!important;
+  width:3px;
+}
+.finalists-grid article.nscc-finalist-card small{
+  color:rgba(242,234,255,.72)!important;
+  letter-spacing:1.7px;
+  font-size:10px;
+}
+.finalists-grid article.nscc-finalist-card b{
+  color:var(--finalist-color)!important;
+  font-size:clamp(17px,2vw,26px)!important;
+  line-height:1.24;
+  overflow-wrap:anywhere;
+  text-shadow:0 0 18px rgba(var(--finalist-rgb),.16);
+  margin:17px 0!important;
+  letter-spacing:.1px;
+}
+.finalists-grid article.nscc-finalist-card span{
+  align-self:center;
+  display:inline-block;
+  padding:5px 12px;
+  border:1px solid rgba(var(--finalist-rgb),.35);
+  border-radius:100px;
+  background:rgba(var(--finalist-rgb),.12);
+  color:var(--finalist-color)!important;
+  font:800 10px Rajdhani,sans-serif;
+  letter-spacing:1.4px;
+}
+@media(max-width:600px){
+  .finalists-grid article.nscc-finalist-card{min-height:152px;padding:23px 14px!important}
+  .finalists-grid article.nscc-finalist-card b{font-size:24px!important}
+}
