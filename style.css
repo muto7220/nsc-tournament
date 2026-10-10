@@ -2615,3 +2615,22 @@ main{
 .final-rounds div span em{font-style:normal;color:#b18ef1}
 @media(max-width:850px){.nscc-final-match-grid{grid-template-columns:1fr}.nscc-finals-header{align-items:flex-start}.nscc-final-team strong{font-size:20px}}
 @media(max-width:530px){.nscc-finals-header{flex-direction:column}.nscc-finals-status{align-self:stretch;text-align:left}.nscc-final-round{padding:12px}.nscc-final-versus{padding:14px 7px;grid-template-columns:minmax(0,1fr) 39px minmax(0,1fr);gap:4px}.nscc-final-team strong{font-size:17px}.nscc-final-card-bottom{display:block}.nscc-final-card-bottom small{display:block;margin-top:5px}}
+
+
+/* NSCC DAY1 TOTAL RESULTS / ACCURATE COUNTS: 6 + 6 + 3 = 15 */
+.nscc-day1-count{display:grid;grid-template-columns:minmax(200px,0.85fr) minmax(0,2.5fr);border:1px solid rgba(186,147,252,.40);margin:23px 0 24px;background:linear-gradient(110deg,rgba(121,65,205,.16),rgba(25,11,40,.8));overflow:hidden}
+.nscc-day1-count-main{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;padding:23px 25px;border-right:1px solid rgba(186,147,252,.25)}
+.nscc-day1-count-main>small{font:900 10px Rajdhani,sans-serif;color:#c3a4ff;letter-spacing:1.5px}
+.nscc-day1-count-main>strong{font:900 clamp(40px,5vw,66px)/1 Rajdhani,sans-serif;color:#e7d7ff;white-space:nowrap;letter-spacing:2px}
+.nscc-day1-count-main>strong em{font-size:30px;color:#9373c7;font-style:normal}
+.nscc-day1-count-main>span{font-size:12px;color:#cec0e0;font-weight:700}
+.nscc-day1-count-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.nscc-day1-count-stages>a{display:flex;flex-direction:column;justify-content:center;gap:8px;min-width:0;padding:22px 13px;text-decoration:none;border-left:1px solid rgba(186,147,252,.13);transition:background .16s}
+.nscc-day1-count-stages>a:hover{background:rgba(158,95,238,.13)}
+.nscc-day1-count-stages>a>small{font:800 9px Rajdhani,sans-serif;color:#a995c3;letter-spacing:1px;overflow-wrap:anywhere}
+.nscc-day1-count-stages>a>b{font-size:14px;color:#dfcffe}
+.nscc-day1-count-stages>a>strong{font:900 34px/1 Rajdhani,sans-serif;color:#e4d4ff}
+.nscc-day1-count-stages>a>strong em{font-style:normal;color:#9d83be;font-size:21px}
+.nscc-day1-count-stages>a>span{font:700 8px Rajdhani,sans-serif;color:#a3e7ce;letter-spacing:.6px}
+@media(max-width:800px){.nscc-day1-count{grid-template-columns:1fr}.nscc-day1-count-main{border-right:0;border-bottom:1px solid rgba(186,147,252,.22)}}
+@media(max-width:470px){.nscc-day1-count-main{padding:18px}.nscc-day1-count-stages>a{padding:16px 8px}.nscc-day1-count-stages>a>strong{font-size:27px}.nscc-day1-count-stages>a>strong em{font-size:16px}.nscc-day1-count-stages>a>b{font-size:12px}}
