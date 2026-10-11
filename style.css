@@ -2897,3 +2897,10 @@ background:linear-gradient(110deg,#492280,#6b35a9);color:#fff;font-size:12px;fon
 .nscc-final-commentator a{color:#e4cdff;text-decoration:underline;text-underline-offset:3px;font-size:11px;font-weight:700}
 .nscc-r1-broadcast-archive>summary:focus-visible,.nscc-final-commentator a:focus-visible{outline:3px solid #e9d5ff;outline-offset:3px}
 @media(max-width:580px){.nscc-r1-broadcast-archive>summary{padding:16px}.nscc-r1-broadcast-archive>.nscc-final-broadcast{padding:12px}}
+
+/* Separate broadcast pairs for Final Round 2 Match 04 */
+.nscc-r2-host-pairs{display:grid;gap:8px;width:100%}
+.nscc-round2-featured .nscc-r2-host-pairs .nscc-r2-hosts{
+  text-align:left;margin:0;padding:10px 12px;border-radius:5px;
+  border:1px solid rgba(190,150,255,.33);background:rgba(113,57,175,.13)
+}
