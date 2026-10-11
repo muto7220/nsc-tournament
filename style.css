@@ -2859,3 +2859,21 @@ background:linear-gradient(110deg,#492280,#6b35a9);color:#fff;font-size:12px;fon
   .nscc-qualifier-details>summary{padding:16px}
   .nscc-qualifier-details>.nscc-stream-wrap{padding:0 12px 16px}
 }
+
+/* NSCC 2026 GRAND FINAL — confirmed match scores */
+.nscc-final-card[data-result="complete"]{border-color:rgba(180,142,255,.48);box-shadow:0 6px 26px rgba(121,63,188,.13)}
+.nscc-final-card[data-result="complete"] .nscc-final-card-top b{color:#ddcaff;font-size:11px}
+.nscc-final-card[data-result="complete"] .nscc-final-score em{
+  font:900 clamp(18px,2vw,26px)/1 Rajdhani,'Noto Sans JP',sans-serif;
+  letter-spacing:.5px;color:#f5ecff;white-space:nowrap
+}
+.nscc-final-card[data-result="complete"] .nscc-final-score b{
+  color:#c4a3fc;font:800 10px 'Noto Sans JP',sans-serif
+}
+.nscc-final-card[data-result="complete"][data-winner="left"] .nscc-final-team:first-child,
+.nscc-final-card[data-result="complete"][data-winner="right"] .nscc-final-team:last-child{
+  background:linear-gradient(135deg,rgba(161,115,250,.2),rgba(74,29,130,.08));
+  outline:1px solid rgba(190,159,255,.42);border-radius:6px;padding:9px 3px
+}
+.nscc-final-card[data-result="complete"][data-winner="left"] .nscc-final-team:last-child,
+.nscc-final-card[data-result="complete"][data-winner="right"] .nscc-final-team:first-child{opacity:.75}
