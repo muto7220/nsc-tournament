@@ -2804,3 +2804,58 @@ background:linear-gradient(110deg,#492280,#6b35a9);color:#fff;font-size:12px;fon
   .nscc-final-broadcast-versus b{font-size:20px}
   .nscc-final-broadcast-links a{flex-basis:100%}
 }
+
+/* NSCC Grand Final: prominent broadcast placement and compact qualifier archive */
+#live.nscc-final-live-section{
+  padding-top:68px!important;padding-bottom:65px!important;
+  background:radial-gradient(ellipse at 82% 4%,rgba(123,57,205,.18),transparent 53%),
+             linear-gradient(180deg,#0f0720,#080512 70%,#070610)!important;
+  border-block:1px solid rgba(173,125,255,.28);
+}
+.nscc-final-live-section .section-title{margin-bottom:28px!important}
+.nscc-final-live-section .section-title h2{font-size:clamp(27px,3vw,41px)!important}
+.nscc-final-live-section .section-title span{font-size:11px!important;letter-spacing:0!important}
+.nscc-final-live-section .nscc-final-broadcast{margin-bottom:16px!important}
+.nscc-final-live-section .nscc-final-broadcast-heading{margin-bottom:13px;padding:20px 26px}
+.nscc-final-live-section .nscc-final-broadcast-heading h3{font-size:clamp(23px,2.6vw,34px)}
+.nscc-final-live-section .nscc-final-broadcast-card{
+  border-color:rgba(196,159,255,.43);
+  box-shadow:0 12px 35px rgba(0,0,0,.20);
+}
+.nscc-final-live-section .nscc-final-broadcast-card>small{
+  font-size:13px;letter-spacing:1.5px
+}
+.nscc-final-live-section .nscc-final-broadcast-card p{color:#dbd0e9}
+.nscc-final-live-section .nscc-final-broadcast-links a{
+  min-height:54px;font-size:14px;line-height:1.4;
+  border-color:rgba(220,190,255,.62);
+  box-shadow:0 6px 18px rgba(87,30,154,.22)
+}
+.nscc-final-live-section .nscc-final-broadcast-links a:focus-visible,
+.nscc-qualifier-details>summary:focus-visible{
+  outline:3px solid #e9d5ff;outline-offset:4px
+}
+.nscc-qualifier-details{
+  max-width:1160px;margin:22px auto 0;
+  border:1px solid rgba(172,126,255,.27);border-radius:9px;
+  background:rgba(20,10,38,.75);overflow:hidden;
+}
+.nscc-qualifier-details>summary{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  list-style:none;cursor:pointer;padding:17px 23px;
+  background:linear-gradient(90deg,rgba(86,43,153,.24),rgba(19,10,36,.82))
+}
+.nscc-qualifier-details>summary::-webkit-details-marker{display:none}
+.nscc-qualifier-details>summary b{display:block;color:#f0e6ff;font-size:14px}
+.nscc-qualifier-details>summary small{display:block;color:#ab9bbb;font-size:11px;line-height:1.7;margin-top:3px}
+.nscc-qualifier-details>summary em{font-style:normal;color:#c9aaff;font-size:24px;line-height:1}
+.nscc-qualifier-details[open]>summary em{transform:rotate(45deg)}
+.nscc-qualifier-details>.nscc-stream-wrap{margin:20px auto 0;padding:0 18px 20px}
+@media(max-width:700px){
+  #live.nscc-final-live-section{padding-top:48px!important;padding-bottom:50px!important}
+  .nscc-final-live-section .nscc-final-broadcast-heading{padding:18px}
+  .nscc-final-live-section .nscc-final-broadcast-card{padding:20px 16px}
+  .nscc-final-live-section .nscc-final-broadcast-links a{font-size:13px}
+  .nscc-qualifier-details>summary{padding:16px}
+  .nscc-qualifier-details>.nscc-stream-wrap{padding:0 12px 16px}
+}
