@@ -2912,3 +2912,22 @@ background:linear-gradient(110deg,#492280,#6b35a9);color:#fff;font-size:12px;fon
 .nscc-round3-featured .nscc-final-broadcast-label{color:#f0dcff}
 .nscc-r2-broadcast-archive{margin:18px auto 0}
 .nscc-r2-broadcast-archive .nscc-round2-featured{margin:0!important}
+
+/* NSCC 2026 official first champion — 3 wins, 0 losses */
+.champion-reveal.revealed{
+  border:1px solid rgba(195,151,255,.7);
+  background:radial-gradient(ellipse at 50% -35%,rgba(158,97,243,.20),transparent 64%),
+    linear-gradient(140deg,#170d27,#090810 78%);
+  box-shadow:0 0 35px rgba(130,79,204,.16),inset 0 1px 0 rgba(215,186,255,.13);
+}
+.champion-reveal.revealed .champion-glow{
+  background:radial-gradient(ellipse,rgba(175,113,255,.26),transparent 67%)
+}
+.champion-reveal.revealed small{color:#c9afff}
+.champion-reveal.revealed h3{color:#f6eaff;font-size:clamp(36px,6vw,66px);letter-spacing:3.5px}
+.champion-reveal.revealed strong{
+  color:#dfc2ff!important;font-size:clamp(30px,5vw,58px);line-height:1.25;
+  overflow-wrap:anywhere;text-shadow:0 0 27px rgba(183,128,255,.34)
+}
+.champion-reveal.revealed p{color:#d4c2e9;font-size:clamp(12px,1.6vw,16px);font-weight:700;line-height:1.8}
+.champion-reveal.revealed .champion-congrats{color:#b996f8;font-weight:800;margin-top:10px}
