@@ -8,26 +8,57 @@
   <meta http-equiv="Expires" content="0">
   <title>NSCC | 成り上がり Server Challenge Cup</title>
   <meta name="description" content="成り上がり鯖が主催するVALORANTカスタム大会 NSCC">
-  <link rel="stylesheet" href="style.css?v=20261011-accurate-day1-count">
+  <link rel="stylesheet" href="style.css?v=20261011-compact-nav">
 </head>
-<body>
+<body class="nscc-compact-layout">
   <div class="noise"></div>
   <div class="tournament-ribbon">
     <div class="tournament-ribbon__brand"><strong>NSCC 2026</strong><span>OFFICIAL TOURNAMENT SITE</span></div>
     <div class="tournament-ribbon__schedule"><span>10.10 QUALIFIERS</span><i></i><span>10.11 FINAL</span></div>
     <div class="tournament-ribbon__status"><i></i><span id="ribbonStatus">PRE EVENT</span></div>
   </div>
-  <header class="header">
+  <header class="header site-nav-compact">
     <a class="brand" href="#top"><span>NSCC</span><small>NARIAGARI SERVER CHALLENGE CUP</small></a>
-    <nav>
-      <a href="#requirements">参加条件</a><a href="#about">大会概要</a><a href="#rules">大会ルール</a><a href="#bracket">トーナメント</a>
-      <a href="#maps">試合マップ</a><a href="#liveboard">LIVE</a><a href="#matchups">予選1カード</a><a href="#round2">予選2カード</a><a href="#lastchance">敗者復活戦</a><a href="#finalmatchups">決勝対戦カード</a><a href="results.html">大会結果まとめ</a><a href="#results">結果速報</a><a href="#teams">チーム編成</a><a href="draw.html">対戦抽選</a><a href="side.html">先攻・後攻</a><a href="#dayflow">当日の進行</a><a href="#news">NEWS</a><a href="#live">実況・配信</a><a href="#notes">備考</a>
+    <nav id="siteNav" aria-label="サイト内メニュー">
+      <a href="#finalmatchups">決勝カード</a>
+      <a href="#results">結果速報</a>
+      <a href="#teams">チーム編成</a>
+      <a href="#dayflow">当日の進行</a>
+      <a href="#live">実況・配信</a>
+      <details class="site-more">
+        <summary>全メニュー <span aria-hidden="true">▾</span></summary>
+        <div class="site-more-panel">
+          <div class="site-menu-group"><small>大会案内</small>
+            <a href="#liveboard">LIVE・カウントダウン</a>
+            <a href="#requirements">参加条件</a>
+            <a href="#about">大会概要</a>
+            <a href="#rules">大会ルール</a>
+            <a href="#quickguide">困ったときは</a>
+            <a href="#notes">備考</a>
+          </div>
+          <div class="site-menu-group"><small>試合・結果</small>
+            <a href="#bracket">大会形式</a>
+            <a href="#maps">試合マップ</a>
+            <a href="#matchups">予選1カード</a>
+            <a href="#round2">予選2カード</a>
+            <a href="#lastchance">敗者復活戦</a>
+            <a href="results.html">大会結果まとめ</a>
+          </div>
+          <div class="site-menu-group"><small>運営・関連</small>
+            <a href="draw.html">対戦抽選</a>
+            <a href="side.html">先攻・後攻</a>
+            <a href="#news">NEWS</a>
+            <a href="#entry">エントリー情報</a>
+            <a href="https://discord.gg/B6Ruuv8vS" target="_blank" rel="noopener">Discord参加 ↗</a>
+          </div>
+        </div>
+      </details>
     </nav>
     <div class="head-actions">
       <a class="discord" href="https://discord.gg/B6Ruuv8vS" target="_blank" rel="noopener">◉ Discord参加</a>
       <a class="entry" href="https://forms.gle/kX8H7CHd4jUk99Mw9" target="_blank" rel="noopener">エントリー <b>›</b></a>
     </div>
-    <button class="menu" aria-label="メニュー">☰</button>
+    <button type="button" class="menu" aria-label="メニュー" aria-expanded="false" aria-controls="siteNav">☰</button>
   </header>
   <main id="top">
     <section class="hero hero-official">
@@ -83,7 +114,7 @@
         </div>
 
         <div class="hero-official-actions">
-          <a href="#matchups" class="hero-primary">対戦カードを見る <span>›</span></a>
+          <a href="#finalmatchups" class="hero-primary">対戦カードを見る <span>›</span></a>
           <a href="#about" class="hero-secondary">大会情報 <span>›</span></a>
         </div>
       </div>
@@ -129,7 +160,7 @@
 
       <div class="command-links">
         <a href="#rules"><span>RULES</span><b>大会ルールを確認</b><em>›</em></a>
-        <a href="#matchups"><span>MATCHUP</span><b>対戦カードを見る</b><em>›</em></a>
+        <a href="#finalmatchups"><span>MATCHUP</span><b>決勝カードを見る</b><em>›</em></a>
         <a href="results.html"><span>RESULT</span><b>全15試合の結果まとめ</b><em>›</em></a>
         <a href="#teams"><span>ROSTER</span><b>自分のチームを探す</b><em>›</em></a>
       </div>
@@ -680,7 +711,8 @@
       <a class="big-entry" href="https://forms.gle/kX8H7CHd4jUk99Mw9" target="_blank" rel="noopener">ENTRY FORM <span>›</span></a>
     </section>
   </main>
+  <a class="back-to-top" href="#top" aria-label="ページ最上部へ戻る">↑ TOPへ</a>
   <footer><span>NSCC</span><p>NARIAGARI SERVER CHALLENGE CUP</p><small>© 2026 成り上がり鯖</small></footer>
-  <script src="script.js?v=20261011-final"></script>
+  <script src="script.js?v=20261011-compact-nav"></script>
 </body>
 </html>
