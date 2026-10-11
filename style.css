@@ -2877,3 +2877,23 @@ background:linear-gradient(110deg,#492280,#6b35a9);color:#fff;font-size:12px;fon
 }
 .nscc-final-card[data-result="complete"][data-winner="left"] .nscc-final-team:last-child,
 .nscc-final-card[data-result="complete"][data-winner="right"] .nscc-final-team:first-child{opacity:.75}
+
+/* NSCC 2026 Grand Final: Round 2 stream assignments + Round 1 archive */
+.nscc-round2-featured{margin-bottom:17px!important}
+.nscc-round2-featured .nscc-final-broadcast-heading{background:linear-gradient(115deg,rgba(104,45,193,.43),rgba(15,6,34,.94) 66%);border-left-color:#d3b4ff}
+.nscc-round2-featured .nscc-final-broadcast-card{border-color:rgba(191,150,255,.65)}
+.nscc-round2-featured .nscc-r2-hosts{color:#f0e4ff!important;font-size:clamp(13px,1.5vw,16px)!important;font-weight:800}
+.nscc-r2-stream-note{margin-top:auto;padding:12px;text-align:center;border-radius:5px;color:#b8a7ca;border:1px dashed rgba(184,149,225,.35);font-size:12px;font-weight:700;background:rgba(27,16,47,.68)}
+.nscc-r1-broadcast-archive{max-width:1160px;margin:18px auto 0;border:1px solid rgba(172,126,255,.27);border-radius:9px;background:rgba(20,10,38,.75);overflow:hidden}
+.nscc-r1-broadcast-archive>summary{display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;cursor:pointer;padding:17px 23px;background:linear-gradient(90deg,rgba(86,43,153,.24),rgba(19,10,36,.82))}
+.nscc-r1-broadcast-archive>summary::-webkit-details-marker{display:none}
+.nscc-r1-broadcast-archive>summary b{display:block;color:#f0e6ff;font-size:14px}
+.nscc-r1-broadcast-archive>summary small{display:block;color:#ab9bbb;font-size:11px;line-height:1.7;margin-top:3px}
+.nscc-r1-broadcast-archive>summary em{font-style:normal;color:#c9aaff;font-size:24px;line-height:1}
+.nscc-r1-broadcast-archive[open]>summary em{transform:rotate(45deg)}
+.nscc-r1-broadcast-archive>.nscc-final-broadcast{margin:0!important;padding:18px}
+.nscc-final-commentator{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid rgba(183,146,234,.20);background:rgba(99,53,161,.12);padding:10px 14px}
+.nscc-final-commentator span{color:#eedbff;font-size:11px;font-weight:700}
+.nscc-final-commentator a{color:#e4cdff;text-decoration:underline;text-underline-offset:3px;font-size:11px;font-weight:700}
+.nscc-r1-broadcast-archive>summary:focus-visible,.nscc-final-commentator a:focus-visible{outline:3px solid #e9d5ff;outline-offset:3px}
+@media(max-width:580px){.nscc-r1-broadcast-archive>summary{padding:16px}.nscc-r1-broadcast-archive>.nscc-final-broadcast{padding:12px}}
