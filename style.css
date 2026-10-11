@@ -2904,3 +2904,11 @@ background:linear-gradient(110deg,#492280,#6b35a9);color:#fff;font-size:12px;fon
   text-align:left;margin:0;padding:10px 12px;border-radius:5px;
   border:1px solid rgba(190,150,255,.33);background:rgba(113,57,175,.13)
 }
+
+/* NSCC 2026 FINAL ROUND 3: newest live streams */
+.nscc-round3-featured .nscc-final-broadcast-heading{
+  border-left-color:#e0c3ff;background:linear-gradient(115deg,rgba(126,54,216,.47),rgba(16,5,32,.96) 68%)
+}
+.nscc-round3-featured .nscc-final-broadcast-label{color:#f0dcff}
+.nscc-r2-broadcast-archive{margin:18px auto 0}
+.nscc-r2-broadcast-archive .nscc-round2-featured{margin:0!important}
